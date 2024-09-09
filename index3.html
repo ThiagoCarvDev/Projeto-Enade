@@ -14,16 +14,18 @@
         <!-- Formulário esqueceu senha -->
         <form id="forgotPasswordForm">
           <div class="tilte-logo">
-            <h2 class="title">Recuperar senha</h2>
+            <h2 class="title">Definir Nova Senha</h2>
             <h4 class="sub-title"></h4>
           </div>
           <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" id="forgotEmail" placeholder="Email" maxlength="50" required />
-            <small class="error-message" id="emailError"></small>
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Digite sua nova senha" required />
           </div>
-          <input type="submit" value="Enviar" class="btn solid" />
-          <a href="index.html">Voltar</a>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Confirme sua senha" required />
+          </div>
+          <input type="submit" value="Confirmar" class="btn solid" />
           <img src="assets/img/Logo.png" alt="nassau" class="imgLogo">
         </form>
       </div>
@@ -38,6 +40,6 @@
     </div>
   </div>
 
-  <script src="app2.js"></script>
+  <script src="app3.js"></script>
 </body>
 </html>
