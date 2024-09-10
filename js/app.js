@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         email: email.value,
         password: password.value,
         role:["user"],
-        course: course.value
+        courseId: courseId.value
       })
     })
     .then(response => {

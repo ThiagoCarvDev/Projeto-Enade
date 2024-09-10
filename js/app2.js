@@ -1,15 +1,16 @@
 // Selecionando os elementos corretos
+document.addEventListener('DOMContentLoaded', () => {
 const forgotPasswordForm = document.getElementById('forgotPasswordForm');
 const emailInput = forgotPasswordForm.querySelector('input[type="email"]');
 const emailError = document.getElementById('emailError');
 
 // Adicionando a funcionalidade de "Esqueci a Senha"
-document.addEventListener('DOMContentLoaded', () => {
+
     forgotPasswordForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
         // Limpar mensagens de erro
-        emailError.textContent = '';
+        emailError.textContent = ''; 
 
         if (!emailInput.value) {
             emailError.textContent = 'Por favor, insira seu email.';
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ 
-                email: emailInput.value,
+                email: emailInput.value, 
             }),
         })
         .then(response => {
