@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "../css/teste.css" rel = "stylesheet"/>
+    <title>Perfil - Enade Quiz</title>
+</head>
+<body>
+    <header>
+        <div class = "enade-logo"></div>
+
+        <ul>
+            <li>INÍCIO</li>
+            <li>QUESTÃO</li>
+            <li>SOBRE</li>
+        </ul>
+
+        <button>PERFIL</button>
+    </header>
+
+    <main>
+        <div class = "teto"></div>
+        <div class = "profile-pic"></div>
+
+        <div class="input-field">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <input type="text" id="loginUsername" value = "Fulano Cicrano Beltrano" disabled>
+        </div>
+
+        <div class="input-field">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <input type="email" id="registerEmail" maxlength="50" value = "fulaninho@gmail.com" disabled>
+            <small class="error-message" id="emailError"></small>
+        </div>
+    </main>
+
+    <footer>
+        <picture>
+            <img src = "../../assets/img/Logo.png"/>
+        </picture>
+    </footer>
+</body>
+</html>
