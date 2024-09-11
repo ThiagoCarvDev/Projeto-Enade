@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Cadastro bem-sucedido!');
       // Opcionalmente, você pode automaticamente logar o usuário após o cadastro
       // ou redirecioná-lo para a página de login.
+      window.location.href = 'index.html';
     })
     .catch(error => {
       console.error('Erro no cadastro:', error);

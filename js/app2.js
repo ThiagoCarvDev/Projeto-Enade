@@ -35,9 +35,10 @@ const emailError = document.getElementById('emailError');
         })
         .then(data => {
             console.log('Forgot Password Response:', data);
-            alert('Se o email estiver registrado, você receberá instruções para redefinir sua senha.');
+            alert('Email enviado com sucesso! Verifique seu email.');
             // Opcional: Limpar o formulário após o envio
             forgotPasswordForm.reset();
+            window.location.href = 'index.html';
         })
         .catch(error => {
             console.error('Erro ao solicitar recuperação de senha:', error);

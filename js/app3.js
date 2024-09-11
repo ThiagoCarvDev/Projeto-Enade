@@ -20,7 +20,7 @@ document.getElementById('reset-password-form').addEventListener('submit', async 
     };
     
     try {
-        const response = await fetch('URL_DO_BACKEND', {
+        const response = await fetch('http://localhost:8080/api/auth/reset-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
