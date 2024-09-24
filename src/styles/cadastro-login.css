@@ -23,16 +23,11 @@
   --sombra-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5) ;
 }
 
-
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-
-
 
 body,
 input {
@@ -42,11 +37,10 @@ input {
 .container {
   position: relative;
   width: 100%;
-  background-color: var(--background-color);
+  background-color: var(--color-neutral-0);
   min-height: 100vh;
   overflow: hidden;
 }
-
 
 .forms-container {
   position: absolute;
@@ -88,6 +82,7 @@ form.sign-up-form {
 form.sign-in-form {
   z-index: 2;
 }
+
 .tilte-logo{
   padding: 90px;
   align-items: center;
@@ -198,10 +193,6 @@ form.sign-in-form {
   color: #333;
 }
 
-
-
-
-
 .seletor::after {
   content: '\f078'; /* Unicode do ícone de seta para baixo (FontAwesome) */
   font-family: 'FontAwesome';
@@ -217,7 +208,6 @@ form.sign-in-form {
 .seletor select:focus {
   outline: none;
 }
-
 
 /* Vamos mudar essa parte, Vai ser um esqueceu senha...*/
 .social-text {
@@ -332,6 +322,23 @@ select{
 .right-panel .image,
 .right-panel .content {
   transform: translateX(800px);
+}
+
+/*Organizando alguns detalhes*/
+#forgotPasswordForm a{
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  color: var(--color-neutral-1);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.sign-in-form a{
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  color: var(--color-neutral-1);
+  font-weight: 500;
+  font-size: 16px;
 }
 
 /* ANIMATION */

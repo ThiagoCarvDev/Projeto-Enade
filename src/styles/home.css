@@ -1,0 +1,91 @@
+
+/* Esse style é a parte do ""*/
+
+#home {
+    display: flex;
+    min-height: calc(100vh - 91px); /*Altura minima*/
+    position: relative;
+    margin: 1% 0;
+}
+
+#cta {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 10%;
+    align-items: center;
+}
+
+#cta .title {
+    display: grid;
+    width: 100%;
+    font-size: 2rem;
+    font-family: var(--font-primary);
+    color: var(--color-neutral-1);;
+}
+/*Talvez eu tire isso...*/
+#cta .title span {
+    color: var(--color-neutral-1);
+    font-size: 2rem;
+    font-family: var(--font-secondary);
+}
+
+#cta .description {
+    font-family: var(--font-secondary);
+}
+
+#cta_buttons {
+    gap: 24px;
+}
+
+#cta_buttons a {
+    text-decoration: none;
+    color: var(--color-neutral-0);
+    font-family: var(--font-secondary);
+}
+
+#banner {
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    width: 70%;
+    z-index: 2;
+}
+
+/*imagen do baner*/
+#banner img {
+    height: 100%;
+    width: fit-content;
+}
+
+.forma {
+    background-image: var(--color-background-1);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    border-radius: 40% 30% 0% 20%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+/*Responsividade da tela*/
+@media screen and (max-width: 1170px) {
+    #home {
+        min-height: 100%;
+        padding-top: 0px;
+    }
+
+    #banner,
+    #banner img,
+    #home .forma {
+        display: none;
+    }
+
+    #cta {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+}
