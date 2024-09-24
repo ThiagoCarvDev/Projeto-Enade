@@ -1,0 +1,92 @@
+/*fontes a ser utilizadas*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Salsa&display=swap');
+
+/*styles das demais telas*/
+@import url('header.css');
+@import url('home.css');
+@import url('quiz.css');
+@import url('sobre.css');
+@import url('footer.css');
+@import url('cabecalho.css');
+@import url('cadastro-login.css');
+
+:root {
+    /* Core Colors */
+    --color-neutral-0: #fff;
+    --color-neutral-1: #1d1d1d;  
+    --color-primary-1: #006BF6;
+    --color-primary-2: #1A237E;
+    --color-primary-3: #f8d477; /* mudar depois*/
+    --color-primary-4: #ffe100;
+    --color-primary-5: #ffcb45;
+     
+    --color-btn-1: #2483FF;
+    --color-btn-2: #006BF6;
+
+    --color-background-0: linear-gradient(180deg, #0095FF 0%, #1A237E 108.54%);
+    --color-background-1: radial-gradient(54.01% 54.01% at 50% 50%, #005999 37%, #0095FF 100%);
+
+    --shadow-0: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    --shadow-1: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+   /* Font Families */
+    --font-primary: 'Salsa', cursive;
+    --font-secondary: 'Roboto Condensed', sans-serif;
+
+     /* Other */
+    --title-stroke-width: 1px;
+    --title-stroke-color: rgba(0, 0, 0, 0.20);
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-neutral-0);
+}
+
+/*Centralização do site segindo um padão*/
+section {
+    padding: 28px 8%;
+}
+
+/*Button padrão - estou pensando em crias outro...*/
+.btn-default {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-btn-2);
+    background-color: var(--color-btn-1);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-0), var(--shadow-1);
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.btn-default:hover {
+    background-image: var(--color-background-0);
+}
+
+
+.section-title {
+    color: var(--color-neutral-1);
+    font-size: 1.563rem;
+    font-family: var(--font-primary);
+}
+
+.section-subtitle {
+    font-size: 2.1875rem;
+    font-family: var(--font-secondary);
+} 

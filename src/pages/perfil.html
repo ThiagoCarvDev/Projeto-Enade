@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "/src/styles/styles.css" rel = "stylesheet"/>
+    <title>Enade Quiz</title>
+</head>
+<body>
+    <header>
+        <!-- Cabeçalho do site -->
+        <nav id="navbar">
+            <!-- Logo do Enade -->
+            <img src="/src/img/logo-enade.svg" alt="Logo Enade" id="nav_logo">
+            <!-- Links para as seções -->
+            <ul id="nav_list">
+                <li class="nav-item active">
+                    <a href="#home">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#quiz">Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#conhecanos">Sobre</a>
+                </li>
+            </ul>
+            <!-- Botão do perfil -->
+            <button class="btn-default">
+                <a href="/src/pages/perfil.html">Perfil</a>
+            </button>
+            <!-- Ícone para menu mobile -->
+            <button id="mobile_btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- Menu para celular -->
+        <div id="mobile_menu">
+            <!-- Links para as seções -->
+            <ul id="mobile_nav_list">
+                <li class="nav-item">
+                    <a href="#home">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#quiz">Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#conhecanos">Sobre</a>
+                </li>
+            </ul>
+
+            <button class="btn-default">
+                Perfil
+            </button>
+            
+        </div>
+    </header>
+
+    <main>
+        <div class = "teto"></div>
+        <div class = "profile-pic"></div>
+
+        <div class="input-field">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <input type="text" id="loginUsername" value = "Fulano Cicrano Beltrano" disabled>
+        </div>
+
+        <div class="input-field">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <input type="email" id="registerEmail" maxlength="50" value = "fulaninho@gmail.com" disabled>
+            <small class="error-message" id="emailError"></small>
+        </div>
+    </main>
+
+    <footer>
+        <picture>
+            <img src = "../../assets/img/Logo.png"/>
+        </picture>
+    </footer>
+</body>
+</html>
