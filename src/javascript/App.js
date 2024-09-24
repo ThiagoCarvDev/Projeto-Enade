@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Login Response:', loginData);
       alert('Login bem-sucedido!');
       // Redirecionar ou realizar outras ações após o login bem-sucedido
+      window.location.href = '/src/pages/paginaPrincipal.html';
     })
     .catch(error => {
       console.error('Erro no login:', error);
