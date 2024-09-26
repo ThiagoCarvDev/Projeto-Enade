@@ -10,6 +10,7 @@ let jsonteste =
       "optionB": "Uma restrição para valores únicos",
       "optionC": "Um campo que referencia uma chave primária de outra tabela",
       "optionD": "Uma tabela temporária",
+      "optionE": "testando123",
       "correctAnswer": "C"
   },
 
@@ -27,31 +28,27 @@ let jsonteste =
 window.onload = async () =>
 {
     let divs = Array.from(document.querySelector(".form").children);
-    //divs = Array.prototype.slice.call(divs);
     divs.pop();
     divs.shift();
-    console.log(divs);
-
-    
-
-    /*let testao = new Question(jsonteste[0]);
-    let testona = new Question(jsonteste[1]);
-    //console.log(testao);
-    console.log(Question.instances);*/
+    //console.log(divs);
     
     
-    let resposta = 0 //await get("https://mspfa.com");
-    if (resposta.constructor == Error || resposta.constructor == TypeError)
-    {
-      console.log(resposta);
+    let resposta = 0; //await get("https://mspfa.com");
+    if (resposta instanceof Error) 
+    { 
+      console.warn(resposta);
       alert("Ocorreu um erro. Verifique sua conexão ou tente novamente mais tarde.");
     }
     else
     {
-      //alert(resposta);  
-      new Question(jsonteste[0], divs[0]);
-      Question.instances[0].local.children[0].innerText = Question.instances[0].instancia.text;
-      //testao.text = "HUEHUEHUEHUHEUHEUEUHUE";
+      //alert(resposta);
+      let questArray = [];
+      jsonteste.forEach((json, index, jsonteste)=>
+      {
+        questArray.push(new Question(json, divs[index]))
+      }) 
+      console.log(Question.getOneInstance(7));
+      console.log(Question.selectOption("adasd10"));
     }
     
     
