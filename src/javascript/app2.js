@@ -18,7 +18,7 @@ const emailError = document.getElementById('emailError');
         }
 
         // Enviando a requisição
-        fetch('http://localhost:8080/api/auth/forgot-password', {
+        fetch('http://3.82.216.128:8080/api/auth/forgot-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

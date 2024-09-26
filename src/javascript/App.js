@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    fetch('http://localhost:8080/api/auth/login', {
+    fetch('http://3.82.216.128:8080/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Login Response:', loginData);
       alert('Login bem-sucedido!');
       // Redirecionar ou realizar outras ações após o login bem-sucedido
-      window.location.href = '/src/pages/paginaPrincipal.html';
+      window.location.href = '/src/pages/telaPrincipal.html';
     })
     .catch(error => {
       console.error('Erro no login:', error);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    fetch('http://localhost:8080/api/auth/register', {
+    fetch('http://3.82.216.128:8080/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
