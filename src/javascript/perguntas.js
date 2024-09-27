@@ -27,9 +27,7 @@ let jsonteste =
 
 window.onload = async () =>
 {
-    let divs = Array.from(document.querySelector(".form").children);
-    divs.pop();
-    divs.shift();
+    let divs = Array.from(document.querySelectorAll(".question-div"));
     //console.log(divs);
     
     
@@ -47,8 +45,8 @@ window.onload = async () =>
       {
         questArray.push(new Question(json, divs[index]))
       }) 
-      console.log(Question.getOneInstance(7));
-      console.log(Question.selectOption("adasd10"));
+      //console.log(Question.getOneInstance(7));
+      //console.log(Question.selectOption(document.querySelectorAll(".input-div input")[0]));
     }
     
     
