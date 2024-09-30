@@ -1,4 +1,4 @@
-import { get } from "./ajax.js";
+import { get, post} from "./ajax.js";
 import Question from "./Question.js";
 
 let jsonteste = 
@@ -25,13 +25,22 @@ let jsonteste =
   }
 ];
 
+let apiteste = 
+{
+  "username": "Teste Ando Undois",
+  "email:": "testando@gmail.com",
+  "password": "testando123",
+  "role": ["user"],
+  "courseId": "24"
+}
+
 window.onload = async () =>
 {
     let divs = Array.from(document.querySelectorAll(".question-div"));
-    //console.log(divs);
     
     
-    let resposta = 0; //await get("https://mspfa.com");
+    
+    let resposta = 0; // await post("http://3.82.216.128:8080/api/auth/register", "", apiteste);
     if (resposta instanceof Error) 
     { 
       console.warn(resposta);
@@ -39,14 +48,12 @@ window.onload = async () =>
     }
     else
     {
-      //alert(resposta);
+      //console.warn(resposta);
       let questArray = [];
       jsonteste.forEach((json, index, jsonteste)=>
       {
         questArray.push(new Question(json, divs[index]))
       }) 
-      //console.log(Question.getOneInstance(7));
-      //console.log(Question.selectOption(document.querySelectorAll(".input-div input")[0]));
     }
     
     

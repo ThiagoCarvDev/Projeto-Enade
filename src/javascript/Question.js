@@ -1,3 +1,5 @@
+import questionDiv from "./QuestionDiv.js";
+
 /**Classe que representa os objetos extraídos do JSON da API. Possui também métodos estáticos para manipualção das suas instâncias.*/
 class Question
 {
@@ -47,14 +49,16 @@ class Question
     return null;
   }
 
+
+
   /**Salva a opção marcada na memória, dentro do Question.instances. Pega o ID e salva a letra da opção marcada.
    * @param {HTMLInputElement} element ID do elemento HTML em formato string. @returns {void}*/
   static selectOption(element)
   {
-    console.log(element);
+    //console.log(element);
     let question = Question.getOneInstance(parseInt(element.id.match(/\d+/g)[0]));
     question.marcada = element.value.toUpperCase();
-    console.log(question);
+    //console.log(question);
   }
 
 
@@ -62,72 +66,17 @@ class Question
   /**@param {Question} quest @param {HTMLDivElement} element*/
   constructor(quest, element = document.createElement("div"))
   {
-    
     //Transfusão do JSON para um objeto de Question
     for (let q in quest)
     {
       this[q] = quest[q];
     }
     
-
     //Criando o elemento HTMl da pergunta
     element.replaceChildren();
     element.className = "question-div";
-
-    //Texto da questão
-    let name = document.createElement("div");
-    name.className = "name";
-    name.innerText = this.text;
-    
-    //Spam
-    let span = document.createElement("span");
-    span.className = "required";
-    span.innerText = "*";
-
-    //Adicionando o span ao texto e o texto à div
-    name.appendChild(span);
-    element.appendChild(name);
-
-    //Criando o container input-div
-    let inputDiv = document.createElement("div");
-    inputDiv.className = "input-div";
-    element.appendChild(inputDiv)
-    
-
-
-    //Pega todas os atributos com "option" no nome, até mesmo caso haja alguma opcao a mais (tipo, uma optionE)
-    let opcoes = [];
-    for (let atributo in this)
-    {
-      let match = atributo.match(/option./);
-      match === null ? "nada acontece" : opcoes.push(match[0]);
-      
-    }
-    
-
-    //Cria uma label para cada opcao e adiciona ao input-div
-    opcoes.forEach((opcao, index) =>
-    {
-      let label = document.createElement("label");
-      let input = document.createElement("input");
-      label.appendChild(input);
-      inputDiv.appendChild(label);
-      inputDiv.appendChild(document.createElement("br"));
-
-      input.type = "radio";
-      input.name = "q" + this.id;
-      input.id = opcao + this.id;
-      input.value = opcao.match(/[A-Z]/g)[0];
-      label.append(this[opcao]);
-
-      input.addEventListener("input", (event) =>
-      {
-        Question.selectOption(event.target);
-      })
-    })
-
-    
-    
+    questionDiv(this, element);
+  
     Question.instances = {"instancia": this, "local": element};
   }
 
