@@ -52,4 +52,63 @@ $(document).ready(function() {
         duration: 1000,
         distance: '20%'
     })
+
+
+
+
+    $(document).ready(function () {
+        // Função para extrair o token (JWT) dos cookies ou localStorage
+        function getToken() {
+            return localStorage.getItem('token'); // Ou use outra forma se o token estiver nos cookies
+        }
+    
+        // Função para extrair o userid e courseid do token JWT (se necessário)
+        function parseJWT(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+    
+            return JSON.parse(jsonPayload);
+        }
+    
+        // Ao clicar no botão "Técnicas"
+        $('.btn-entrar').on('click', function (event) {
+            event.preventDefault();
+            
+            const isTechnical = $(this).closest('.categoria').find('h3').text() === 'Técnicas';
+            const token = getToken(); // Extrai o token
+    
+            if (token) {
+                const { userid, courseid } = parseJWT(token); // Extrai userid e courseid do token
+    
+                const url = isTechnical
+                    ? `http://localhost:8080/api/quiz/technical?userid=${userid}&courseid=${courseid}`
+                    : `http://localhost:8080/api/quiz/general?userid=${userid}`;
+    
+                // Faz a requisição ao back-end
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Inclui o token no cabeçalho
+                    },
+                    success: function (response) {
+                        // Redireciona ou exibe as perguntas do quiz baseado na resposta do back-end
+                        console.log('Quiz carregado:', response);
+                        // Aqui você pode redirecionar para uma página de perguntas ou renderizar as perguntas dinamicamente
+                    },
+                    error: function (err) {
+                        console.error('Erro ao carregar o quiz:', err);
+                        // Lidar com o erro, como exibir uma mensagem para o usuário
+                    }
+                });
+            } else {
+                console.error('Token não encontrado');
+                // Redirecionar o usuário para a página de login ou mostrar uma mensagem de erro
+            }
+        });
+    });
+    
 });
