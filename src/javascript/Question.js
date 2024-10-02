@@ -1,6 +1,9 @@
+import questionDiv from "./QuestionDiv.js";
+
+/**Classe que representa os objetos extraídos do JSON da API. Possui também métodos estáticos para manipualção das suas instâncias.*/
 class Question
 {
-  /**@type {number}*/ 
+  /**Identificador da questão. @type {number}*/ 
   id; 
   
   text;
@@ -11,18 +14,18 @@ class Question
   correctAnswer;
 
 
-  //O atributo instances vai armazenar TODAS as instâncias criadas de Question. Isso vai servir para a gente 
-  //rastrear mais fácil no código onde cada questão está
-  /**@type {Array<{instancia: Question, local: HTMLDivElement}>}*/
+  /**Contém todas as instâncias de Question criadas. Ela relaciona a questão ao seu respectivo elemento HTML na página.
+   * @type {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null}>}*/
   static #instances = [];
   
   /**@param {{instancia: Question, local: HTMLDivElement}} instance*/
   static set instances(instance)
   {
+    instance.marcada = null;
     this.#instances.push(instance);
   }
 
-  /**@returns {Array<{instancia: Question, local: HTMLDivElement}>}*/
+  /**@returns {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null}>}*/
   static get instances()
   {
     return this.#instances;
@@ -30,7 +33,8 @@ class Question
 
 
 
-  /**@param {number} id @returns {{instancia: Question, local: HTMLDivElement} | null}*/
+  /**Seleciona uma instância de Question com base no seu ID. Retorna um objeto contendo a instância e seu respectivo elemento HTML.
+   * @param {number} id @returns {{instancia: Question, local: HTMLDivElement, marcada: string | null} | null}*/
   static getOneInstance(id)
   {
     for (let question of Question.instances)
@@ -39,21 +43,28 @@ class Question
       {
         return question;
       }
+      
     }
-
+    
     return null;
   }
 
-  /**@param {string} id @returns {void}*/
-  static selectOption(id)
+
+
+  /**Salva a opção marcada na memória, dentro do Question.instances. Pega o ID e salva a letra da opção marcada.
+   * @param {HTMLInputElement} element ID do elemento HTML em formato string. @returns {void}*/
+  static selectOption(element)
   {
-    return Question.getOneInstance(parseInt(id.match(/\d+/g)[0]));
+    //console.log(element);
+    let question = Question.getOneInstance(parseInt(element.id.match(/\d+/g)[0]));
+    question.marcada = element.value.toUpperCase();
+    //console.log(question);
   }
 
 
 
   /**@param {Question} quest @param {HTMLDivElement} element*/
-  constructor(quest, element)
+  constructor(quest, element = document.createElement("div"))
   {
     //Transfusão do JSON para um objeto de Question
     for (let q in quest)
@@ -61,37 +72,11 @@ class Question
       this[q] = quest[q];
     }
     
-
-    //Pegando o conteúdo da questão e inserindo no elemento
-    element.querySelector(".name").innerText = this.text;
-    let choices = document.createElement("div");
-    choices.className = "choices";
-    element.appendChild(choices);
-
-
-    //Pega todas os atributos com "option" no nome, até mesmo caso haja alguma opcao a mais (tipo, uma optionE)
-    let opcoes = [];
-    for (let atributo in this)
-    {
-      let match = atributo.match(/option./);
-      match === null ? "nada acontece" : opcoes.push(match[0]);
-      //console.log(opcoes);
-    }
-    
-
-    //Cria uma div para cada opcao e adiciona ao elemento choices
-    opcoes.forEach((opcao, index) =>
-    {
-      let divOpcao = document.createElement("div");
-      divOpcao.className = "option";
-      divOpcao.id = opcao + this.id;
-
-      divOpcao.innerText = this[opcao];
-      choices.appendChild(divOpcao);
-    })
-
-    
-    
+    //Criando o elemento HTMl da pergunta
+    element.replaceChildren();
+    element.className = "question-div";
+    questionDiv(this, element);
+  
     Question.instances = {"instancia": this, "local": element};
   }
 
