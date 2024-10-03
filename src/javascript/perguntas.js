@@ -1,4 +1,4 @@
-import { get, post} from "./ajax.js";
+import Ajax from "./Ajax.js";
 import Question from "./Question.js";
 
 let jsonteste = 
@@ -27,11 +27,26 @@ let jsonteste =
 
 let apiteste = 
 {
-  "username": "Teste Ando Undois",
-  "email:": "testando@gmail.com",
+  "username": "TesteAndoUndois",
+  "email": "testando@gmail.com",
   "password": "testando123",
   "role": ["user"],
-  "courseId": "24"
+  "courseId": 24
+}
+
+let apiteste2 = 
+{
+ "username": "posteste2",
+  "email": "testevaipostman2@gmail.com",
+  "password": "12345678",
+  "role": ["user"],
+  "courseId": 17
+}
+
+let apiteste3 =
+{
+  "username": "posteste",
+  "password": "12345678"
 }
 
 window.onload = async () =>
@@ -54,6 +69,12 @@ window.onload = async () =>
       {
         questArray.push(new Question(json, divs[index]))
       }) 
+
+      //let pegarToken = await Ajax.request({method: "POST", url: "auth/login", body: apiteste3});
+      //console.log(pegarToken);
+      //console.log(JSON.stringify(apiteste))
+      console.log(pegarToken)
+      //console.warn(await Ajax.request({method: "GET", url: "https://mspfa.com", auth: "keygen", body: {"bodybuilder": 13}}));
     }
     
     
