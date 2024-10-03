@@ -95,8 +95,10 @@ $(document).ready(function() {
                         'Authorization': `Bearer ${token}` // Inclui o token no cabeçalho
                     },
                     success: function (response) {
+                        window.location.href='/src/perguntas.html';
                         // Redireciona ou exibe as perguntas do quiz baseado na resposta do back-end
                         console.log('Quiz carregado:', response);
+                       
                         // Aqui você pode redirecionar para uma página de perguntas ou renderizar as perguntas dinamicamente
                     },
                     error: function (err) {
