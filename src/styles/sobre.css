@@ -14,15 +14,35 @@
     font-size: 30px;
     color: var(--color-neutral-1);
     text-align: center;
-    border: 1px solid lawngreen;
 }
+
+/*Img das interrogações*/
+#inter{
+    display: flex;
+    justify-content: center;
+    gap: 35%;
+    width: 100%;
+    margin-top: 8%;
+}
+
+#inter1 {
+    display: flex;
+    justify-content: center;
+    gap: 60%;
+    width: 100%;
+}
+
+#inter img, #inter1 img {
+    width: 10%;
+}
+
+
 
 /*cont- de todo o conteudo da tela*/
 #conheca_content {
     width: 60%;
     display: grid;
     gap: 5px;
-    border: 1px solid;
 }
 
 #sobres {
@@ -31,7 +51,6 @@
     gap: 20px;
     margin-bottom: 40px;
     margin-top: 30px;
-    border: 1px solid rebeccapurple;
 }
 
 .sobre{
@@ -41,7 +60,6 @@
     background-color: var(--color-neutral-0);
     padding: 12px;
     border-radius: 12px;
-    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.1);
 }
 
 /*aqui posso colocar uma img caso preciso se não POSSO tirar*/
@@ -54,14 +72,13 @@
 
 .sobre-content{
     display: grid;
-    gap: 8px;
+    gap: 35px;
 }
 
 .sobre-content p {
     display: flex;
     font-family: var(--font-secondary);
     justify-content: space-between;
-    border: 1px solid violet;
     font-size: 20px;
 }
 

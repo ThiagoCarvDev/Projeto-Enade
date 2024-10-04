@@ -65,6 +65,18 @@
     height: 50px;
     border-radius: 15px 15px 0 0;
 }
+.btn-categoria{
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-btn-2);
+    background-color: var(--color-btn-1);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-0), var(--shadow-1);
+}
 
 .categoria button h3{
     font-family: var(--font-secondary);
@@ -78,7 +90,7 @@
 
 .categoria-quiz{
     font-family: var(--font-secondary); 
-    padding: 10% 8% 1% 8%;
+    padding: 8% 8% 1% 8%;
     height: 230px;
 }
 

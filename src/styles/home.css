@@ -18,12 +18,14 @@
 }
 
 #cta .title {
-    display: grid;
+    display: flex;
     width: 100%;
     font-size: 2rem;
     font-family: var(--font-primary);
-    color: var(--color-neutral-1);;
+    color: var(--color-neutral-1);
+    text-align: left; /* Garante que o texto esteja alinhado à esquerda */
 }
+
 /*Talvez eu tire isso...*/
 #cta .title span {
     color: var(--color-neutral-1);
