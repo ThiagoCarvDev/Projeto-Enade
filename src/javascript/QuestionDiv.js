@@ -48,10 +48,7 @@ function questionDiv(thiss, element)
       input.value = opcao.match(/[A-Z]/g)[0];
       label.append(thiss[opcao]);
 
-      input.addEventListener("input", (event) =>
-      {
-        Question.selectOption(event.target);
-      })
+      input.addEventListener("input", event => Question.selectOption(event.target))
     });
 }
 

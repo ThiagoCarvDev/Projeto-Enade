@@ -45,8 +45,8 @@ let apiteste2 =
 
 let apiteste3 =
 {
-  "username": "posteste",
-  "password": "12345678"
+  "username": "TesteAndoUndois",
+  "password": "testando123"
 }
 
 window.onload = async () =>
@@ -55,7 +55,7 @@ window.onload = async () =>
     
     
     
-    let resposta = 0; // await post("http://3.82.216.128:8080/api/auth/register", "", apiteste);
+    let resposta = 0; 
     if (resposta instanceof Error) 
     { 
       console.warn(resposta);
@@ -70,11 +70,14 @@ window.onload = async () =>
         questArray.push(new Question(json, divs[index]))
       }) 
 
-      //let pegarToken = await Ajax.request({method: "POST", url: "auth/login", body: apiteste3});
-      //console.log(pegarToken);
-      //console.log(JSON.stringify(apiteste))
-      console.log(pegarToken)
-      //console.warn(await Ajax.request({method: "GET", url: "https://mspfa.com", auth: "keygen", body: {"bodybuilder": 13}}));
+      let pegarToken = await Ajax.request({method: "POST", url: "auth/login", body: apiteste3});
+      console.log(pegarToken);
+      Ajax.createCookie("IDE", "NeoVim", 5);
+      console.warn(Ajax.readCookie("IDE"));
+      Ajax.updateCookie("IDE", "VSCode", 8);
+      console.warn(Ajax.readCookie("IDE"));
+      Ajax.updateCookie("IDO", "Netbeans", 1);
+      //console.log(Question.instances)
     }
     
     

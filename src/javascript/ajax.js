@@ -1,30 +1,68 @@
 class Ajax
 {
-  /**@type {string} URL mãe do projeto*/
-  static #URLbase = "http://3.86.207.70:8080/api/";
+  /**@readonly @type {string} URL mãe do projeto*/
+  static #URLbase = "http://54.205.121.90:8080/api/";
 
-  /** */
+
+
+  /**Método que busca um cookie pelo seu nome.
+   * @param {string} name 
+   * @returns {any | null}
+   */
+  static readCookie(name) 
+  {
+    const cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++) 
+    {
+      const cookie = cookies[i].split('=');
+      if (cookie[0] === name) return JSON.parse(cookie[1]);
+    }
+
+    return null;
+  }
+
+
+  static updateCookie(name, value, ttl)
+  {
+    if (Ajax.readCookie(name) == null) console.info("O cookie não existe.");
+    else Ajax.createCookie(name, value, ttl);
+  }
+
+
+
+  /**Método para criar um cookie globalmente no domínio.
+   * @param {string | number} name
+   * @param {any} value
+   * @param {number} ttl Tempo de vida do cookie em dias.
+  */
+  static createCookie(name, value, ttl = 0)
+  {
+    let lifetime = new Date();
+    lifetime.setTime(lifetime.getTime() + ttl * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${JSON.stringify(value)}; ${ttl == 0 ? "" : "expires=" + lifetime.toUTCString(lifetime)}; path=/;`;
+  }
+
+
+  /**Método para realizar requisições. Retorna a resposta da requisição em objeto caso você espere usando await. Se não, retorna uma
+   * promise. Pode retornar um erro caso a requisição falhe.
+   * @param {object} obj 
+   * @param {string} obj.method Método HTTP da requisição.
+   * @param {string} obj.url Caminho da requisição. Ele já é adicionado em cima da URL base do projeto, definida na classe ajax.
+   * @param {string} obj.auth Token de autorização, se necessário.
+   * @param {object} obj.body Corpo da requisição, caso haja.
+   * 
+   * @returns {Promise<object | Error>}
+   */
   static async request({method, url, auth, body})
   {
     //Preparando a requisição
     let reqInit = {"method": method};
-    body == undefined ? reqInit.headers = {} : reqInit.headers = {"Content-Type": "application/json", "body": JSON.stringify(body)};
-    auth == undefined ? "nada acontece" : reqInit.headers.Authorization = auth;
-    JSON.stringify(reqInit.headers) == "{}" ? reqInit = {"method": method} : "nada acontece";
-    //console.warn(reqInit);
-
-    let reqInit2 = 
-    {
-      method: method,
-      headers:
-      {
-        "Content-Type": "application/json",
-        body: JSON.stringify(body)
-      }
-    }
+    body == undefined ? "nada acontece" : reqInit = {...reqInit, "headers": {"Content-Type": "application/json"}, "body": JSON.stringify(body)};
+    auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": auth};
+    console.warn(reqInit);
 
     //Requisição
-    return fetch(this.#URLbase + url, reqInit2).then(resposta =>
+    return fetch(this.#URLbase + url, reqInit).then(resposta =>
     {
       if (resposta.ok)
       {
