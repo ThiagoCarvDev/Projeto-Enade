@@ -1,3 +1,5 @@
+import Ajax from "./ajax.js";
+
 /**/
 $(document).ready(function() {
     $('#mobile_btn').on('click', function () {
@@ -63,17 +65,10 @@ $(document).ready(function() {
         }
     
         // Função para extrair o userid e courseid do token JWT (se necessário)
-        function parseJWT(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-    
-            return JSON.parse(jsonPayload);
-        }
+        
     
         // Ao clicar no botão "Técnicas"
+        /*
         $('.btn-entrar').on('click', function (event) {
             event.preventDefault();
             
@@ -111,6 +106,25 @@ $(document).ready(function() {
                 // Redirecionar o usuário para a página de login ou mostrar uma mensagem de erro
             }
         });
+        */
+
+        document.querySelectorAll(".categoria .entra").forEach(botao => botao.addEventListener("click", async event =>
+        {
+            event.preventDefault();
+            //console.log(event.target.parentElement);
+            let link = event.target.parentElement.parentElement.querySelector(".categoria-title").innerText == 
+            "Gerais" ? `quiz/general?userid={userid}` : `quiz/technical?userid={userid}&courseid={courseid}`;
+            history.pushState(link, "", "./perguntas.html");
+            window.location.href = "./perguntas.html";
+        }));
+
+        if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
+        else
+        {
+            //alert(Ajax.readCookie("token"));
+            //Ajax.updateCookie("token", "", -1);
+        }
+        
     });
     
 });

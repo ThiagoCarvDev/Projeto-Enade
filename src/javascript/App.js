@@ -1,3 +1,5 @@
+import Ajax from "./ajax.js";
+
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const signUpForm = document.querySelector('.sign-up-form');
 
   // Validação para o formulário de login
-  signInForm.addEventListener('submit', (event) => {
+  signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = signInForm.querySelector('input[type="text"]').value;
     const password = signInForm.querySelector('input[type="password"]').value;
@@ -25,6 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    let resposta = await Ajax.request(
+    {
+      method: "POST", 
+      url: "auth/login", 
+      body: {username: username, password: password}
+    });
+
+    if (resposta instanceof Error) alert('Falha no login. Verifique suas credenciais.');
+    else
+    {
+      Ajax.createCookie("token", resposta.token, 1);
+      window.location.href = "./src/pages/telaPrincipal.html";
+    }
+    /*
     fetch('http://3.82.216.128:8080/api/auth/login', {
       method: 'POST',
       headers: {
@@ -51,10 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Erro no login:', error);
       alert('Falha no login. Verifique suas credenciais.');
     });
+    */
   });
 
   // Validação para o formulário de cadastro
-  signUpForm.addEventListener('submit', (event) => {
+  signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = signUpForm.querySelector('input[type="text"]').value;
     const email = signUpForm.querySelector('input[type="email"]').value;
@@ -87,6 +104,39 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    let resposta = await Ajax.request(
+    {
+      method: "POST",
+      url: "auth/register",
+      body: 
+      {
+        username: username,
+        email: email,
+        password: password,
+        role: ["user"],
+        courseId: courseId
+      }
+    });
+
+    if (resposta instanceof Error) alert('Falha no cadastro. Verifique os dados e tente novamente.');
+    else
+    {
+      let login = await Ajax.request({
+        method: "POST",
+        url: "auth/login",
+        body: {username: username, password: password}
+      });
+
+      if (login instanceof Error) alert('Cadastro feito, porém falha no login.');
+      else
+      {
+        Ajax.createCookie("token", login.token, 1);
+        window.location.href = "./src/pages/telaPrincipal.html";
+      }
+    }
+
+
+    /*
     fetch('http://3.82.216.128:8080/api/auth/register', {
       method: 'POST',
       headers: {
@@ -117,5 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Erro no cadastro:', error);
       alert('Falha no cadastro. Verifique os dados e tente novamente.');
     });
+    */
   });
 });

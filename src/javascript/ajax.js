@@ -1,7 +1,23 @@
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://54.205.121.90:8080/api/";
+  static #URLbase = "http://100.29.35.66:8080/api/";
+
+
+  /**Função que desemcripta o token e retorna seu valor.
+   * @param {string} token
+   * @returns {object}
+  */
+  static parseJWT(token) 
+  {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  }
 
 
 
@@ -22,6 +38,12 @@ class Ajax
   }
 
 
+
+  /**Método para atualizar cookie. Ele verifica se o cookie existe primeiro. Se não, não executa nada.
+   * @param {string} name Nome do cookie pré-existente.
+   * @param {any} value Novo valor a ser atribuído.
+   * @param {number} ttl Novo tempo de vida. Ele será sobrescrito ao tempo original. Você pode colocar um valor negativo para deletar o cookie.
+  */
   static updateCookie(name, value, ttl)
   {
     if (Ajax.readCookie(name) == null) console.info("O cookie não existe.");
@@ -31,8 +53,8 @@ class Ajax
 
 
   /**Método para criar um cookie globalmente no domínio.
-   * @param {string | number} name
-   * @param {any} value
+   * @param {string} name Nome do cookie.
+   * @param {any} value Valor dele. Pode ser objeto, array, string, e afins.
    * @param {number} ttl Tempo de vida do cookie em dias.
   */
   static createCookie(name, value, ttl = 0)
@@ -43,13 +65,14 @@ class Ajax
   }
 
 
+
   /**Método para realizar requisições. Retorna a resposta da requisição em objeto caso você espere usando await. Se não, retorna uma
    * promise. Pode retornar um erro caso a requisição falhe.
-   * @param {object} obj 
-   * @param {string} obj.method Método HTTP da requisição.
-   * @param {string} obj.url Caminho da requisição. Ele já é adicionado em cima da URL base do projeto, definida na classe ajax.
-   * @param {string} obj.auth Token de autorização, se necessário.
-   * @param {object} obj.body Corpo da requisição, caso haja.
+   * @param {object} req 
+   * @param {string} req.method Método HTTP da requisição.
+   * @param {string} req.url Caminho da requisição. Ele já é adicionado em cima da URL base do projeto, definida na classe ajax.
+   * @param {string} req.auth Token de autorização, se necessário.
+   * @param {object} req.body Corpo da requisição, caso haja.
    * 
    * @returns {Promise<object | Error>}
    */
@@ -59,7 +82,7 @@ class Ajax
     let reqInit = {"method": method};
     body == undefined ? "nada acontece" : reqInit = {...reqInit, "headers": {"Content-Type": "application/json"}, "body": JSON.stringify(body)};
     auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": auth};
-    console.warn(reqInit);
+    //console.warn(reqInit);
 
     //Requisição
     return fetch(this.#URLbase + url, reqInit).then(resposta =>

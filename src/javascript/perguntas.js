@@ -52,7 +52,8 @@ let apiteste3 =
 window.onload = async () =>
 {
     let divs = Array.from(document.querySelectorAll(".question-div"));
-    
+    alert(window.history.state); // <---- o link da requisição
+    window.history.replaceState(null, "", window.location.pathname);
     
     
     let resposta = 0; 
@@ -72,12 +73,7 @@ window.onload = async () =>
 
       let pegarToken = await Ajax.request({method: "POST", url: "auth/login", body: apiteste3});
       console.log(pegarToken);
-      Ajax.createCookie("IDE", "NeoVim", 5);
-      console.warn(Ajax.readCookie("IDE"));
-      Ajax.updateCookie("IDE", "VSCode", 8);
-      console.warn(Ajax.readCookie("IDE"));
-      Ajax.updateCookie("IDO", "Netbeans", 1);
-      //console.log(Question.instances)
+      
     }
     
     
