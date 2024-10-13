@@ -111,19 +111,14 @@ $(document).ready(function() {
         document.querySelectorAll(".categoria .entra").forEach(botao => botao.addEventListener("click", async event =>
         {
             event.preventDefault();
-            //console.log(event.target.parentElement);
+            let usuario = Ajax.parseJWT(Ajax.readCookie("token"));
             let link = event.target.parentElement.parentElement.querySelector(".categoria-title").innerText == 
-            "Gerais" ? `quiz/general?userid={userid}` : `quiz/technical?userid={userid}&courseid={courseid}`;
+            "Gerais" ? `quiz/general?userid=${usuario.id}` : `quiz/technical?userid=${usuario.id}&courseid=${usuario.courseId}`;
             history.pushState(link, "", "./perguntas.html");
             window.location.href = "./perguntas.html";
         }));
 
         if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
-        else
-        {
-            //alert(Ajax.readCookie("token"));
-            //Ajax.updateCookie("token", "", -1);
-        }
         
     });
     

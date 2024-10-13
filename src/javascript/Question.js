@@ -14,18 +14,20 @@ class Question
   correctAnswer;
 
 
-  /**Contém todas as instâncias de Question criadas. Ela relaciona a questão ao seu respectivo elemento HTML na página.
-   * @type {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null}>}*/
+  /**Contém todas as instâncias de Question criadas. 
+   * @type {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number}>}*/
   static #instances = [];
   
   /**@param {{instancia: Question, local: HTMLDivElement}} instance*/
   static set instances(instance)
   {
     instance.marcada = null;
+    instance.numero = Question.instances.length + 1;
     this.#instances.push(instance);
   }
 
-  /**@returns {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null}>}*/
+  /**Retorna todas as instâncias de Question criadas. Ela relaciona a questão ao seu respectivo elemento HTML na página.
+   * @returns {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number}>}*/
   static get instances()
   {
     return this.#instances;
@@ -34,7 +36,7 @@ class Question
 
 
   /**Seleciona uma instância de Question com base no seu ID. Retorna um objeto contendo a instância e seu respectivo elemento HTML.
-   * @param {number} id @returns {{instancia: Question, local: HTMLDivElement, marcada: string | null} | null}*/
+   * @param {number} id @returns {{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number} | null}*/
   static getOneInstance(id)
   {
     for (let question of Question.instances)

@@ -1,4 +1,4 @@
-import Ajax from "./Ajax.js";
+import Ajax from "./ajax.js";
 import Question from "./Question.js";
 
 let jsonteste = 
@@ -52,28 +52,42 @@ let apiteste3 =
 window.onload = async () =>
 {
     let divs = Array.from(document.querySelectorAll(".question-div"));
+    let questArray = [];
+    let token = Ajax.readCookie("token");
+    alert(JSON.stringify(Ajax.parseJWT(token)))
     alert(window.history.state); // <---- o link da requisição
+    console.warn(token)
+    
+    
+    let resposta = await Ajax.request({method: "POST", url: history.state, auth: "Bearer " + token}); 
     window.history.replaceState(null, "", window.location.pathname);
-    
-    
-    let resposta = 0; 
     if (resposta instanceof Error) 
     { 
-      console.warn(resposta);
       alert("Ocorreu um erro. Verifique sua conexão ou tente novamente mais tarde.");
+      window.location.href = "./telaPrincipal.html";
     }
     else
     {
-      //console.warn(resposta);
-      let questArray = [];
-      jsonteste.forEach((json, index, jsonteste)=>
+      resposta.forEach((json, index, jsonteste)=>
       {
         questArray.push(new Question(json, divs[index]))
-      }) 
+      });
 
-      let pegarToken = await Ajax.request({method: "POST", url: "auth/login", body: apiteste3});
-      console.log(pegarToken);
-      
+      document.querySelector(".last-div").addEventListener("click", async () =>
+      {
+        let quiz = [];
+        for (let question of Question.instances)
+        {
+          quiz.push({"questionId:" : question.instancia.id, "selectedOption": question.marcada});
+        }
+
+        let resultados = await Ajax.request({method: "POST", url: `/quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz});
+        if (resultados instanceof Error) alert("Deu errado");
+        else
+        {
+          console.warn(resultados);
+        }
+      });
     }
     
     
