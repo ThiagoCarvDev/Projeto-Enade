@@ -1,7 +1,7 @@
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://18.234.93.102:8080/api/";
+  static #URLbase = "http://54.152.219.4:8080/api/";
 
 
   /**Função que desemcripta o token e retorna seu valor.
@@ -81,8 +81,21 @@ class Ajax
     //Preparando a requisição
     let reqInit = {"method": method};
     body == undefined ? "nada acontece" : reqInit = {...reqInit, "headers": {"Content-Type": "application/json"}, "body": JSON.stringify(body)};
-    auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": auth};
-    //console.warn(reqInit);
+    auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": "Bearer " + auth};
+    //reqInit.headers = { ...reqInit.headers, "Content-Type": "application/json"}
+    /*
+    reqInit = 
+    {
+      method: method,
+      headers:
+      {
+        Authorization: "Bearer " + auth,
+        "Content-Type": "application/json"
+      }
+    }
+    */
+    console.warn(reqInit);
+
 
     //Requisição
     return fetch(this.#URLbase + url, reqInit).then(resposta =>
@@ -93,6 +106,7 @@ class Ajax
       }
       else
       {
+        //Avisa quando der erro com requisição bem sucedida. É necessário + 1 log para ser mostrado
         console.log("ERRO QUE NÃO É DE REDE: " + resposta.status);
         switch (resposta.status)
         {
@@ -127,10 +141,11 @@ class Ajax
       }    
     }).catch(erro => 
     {
+      //Avisa quando dá erro de não conseguir fazer a requisição.
       if (!/erro:/.test(erro.message)) {console.error("ERRO NO FECTH:\n" + erro + 
         "\n\n Dados da requisição:" + 
         "\n\n url: " + url +
-        "\n Corpo: " + JSON.stringify(reqInit));}
+        "\n ReqInit: " + JSON.stringify(reqInit));}
       return erro;
     });
   }

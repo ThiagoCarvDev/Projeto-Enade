@@ -59,12 +59,12 @@ window.onload = async () =>
     console.warn(token)
     
     
-    let resposta = await Ajax.request({method: "POST", url: history.state, auth: "Bearer " + token}); 
+    let resposta = await Ajax.request({method: "GET", url: history.state, auth: token}); 
     window.history.replaceState(null, "", window.location.pathname);
     if (resposta instanceof Error) 
     { 
       alert("Ocorreu um erro. Verifique sua conexão ou tente novamente mais tarde.");
-      window.location.href = "./telaPrincipal.html";
+      //window.location.href = "./telaPrincipal.html";
     }
     else
     {
