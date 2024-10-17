@@ -37,37 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resposta instanceof Error) alert('Falha no login. Verifique suas credenciais.');
     else
     {
-      Ajax.createCookie("token", resposta.token, 1);
+      Ajax.createCookie("token", resposta.token, 1 / 48);
       window.location.href = "./src/pages/telaPrincipal.html";
     }
-    /*
-    fetch('http://3.82.216.128:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro no login');
-      }
-      return response.json();
-    })
-    .then(loginData => {
-      console.log('Login Response:', loginData);
-      alert('Login bem-sucedido!');
-      // Redirecionar ou realizar outras ações após o login bem-sucedido
-      window.location.href = '/src/pages/telaPrincipal.html';
-    })
-    .catch(error => {
-      console.error('Erro no login:', error);
-      alert('Falha no login. Verifique suas credenciais.');
-    });
-    */
   });
 
   // Validação para o formulário de cadastro
@@ -130,43 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (login instanceof Error) alert('Cadastro feito, porém falha no login.');
       else
       {
-        Ajax.createCookie("token", login.token, 1);
+        Ajax.createCookie("token", login.token, 1 / 48);
         window.location.href = "./src/pages/telaPrincipal.html";
       }
     }
-
-
-    /*
-    fetch('http://3.82.216.128:8080/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-        role: ["user"],
-        courseId: courseId
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro no cadastro');
-      }
-      return response.json();
-    })
-    .then(registerData => {
-      console.log('Register Response:', registerData);
-      alert('Cadastro bem-sucedido!');
-      // Opcionalmente, você pode automaticamente logar o usuário após o cadastro
-      // ou redirecioná-lo para a página de login.
-      window.location.href = 'index.html';
-    })
-    .catch(error => {
-      console.error('Erro no cadastro:', error);
-      alert('Falha no cadastro. Verifique os dados e tente novamente.');
-    });
-    */
   });
 });

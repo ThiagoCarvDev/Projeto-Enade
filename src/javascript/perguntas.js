@@ -54,9 +54,9 @@ window.onload = async () =>
     let divs = Array.from(document.querySelectorAll(".question-div"));
     let questArray = [];
     let token = Ajax.readCookie("token");
-    alert(JSON.stringify(Ajax.parseJWT(token)))
-    alert(window.history.state); // <---- o link da requisição
-    console.warn(token)
+    //alert(JSON.stringify(Ajax.parseJWT(token)))
+    //alert(window.history.state); // <---- o link da requisição
+    //console.warn(token)
     
     
     let resposta = await Ajax.request({method: "GET", url: history.state, auth: token}); 
@@ -78,7 +78,7 @@ window.onload = async () =>
         let quiz = [];
         for (let question of Question.instances)
         {
-          quiz.push({"questionId:" : question.instancia.id, "selectedOption": question.marcada});
+          quiz.push({"questionId": question.instancia.id, "selectedOption": question.marcada});
         }
 
         let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
