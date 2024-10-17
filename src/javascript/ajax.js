@@ -1,7 +1,7 @@
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://54.152.219.4:8080/api/";
+  static #URLbase = "http://52.207.229.130:8080/api/";
 
 
   /**Função que desemcripta o token e retorna seu valor.

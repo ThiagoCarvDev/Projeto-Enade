@@ -64,7 +64,7 @@ window.onload = async () =>
     if (resposta instanceof Error) 
     { 
       alert("Ocorreu um erro. Verifique sua conexão ou tente novamente mais tarde.");
-      //window.location.href = "./telaPrincipal.html";
+      window.location.href = "./telaPrincipal.html";
     }
     else
     {
@@ -73,7 +73,7 @@ window.onload = async () =>
         questArray.push(new Question(json, divs[index]))
       });
 
-      document.querySelector(".last-div").addEventListener("click", async () =>
+      document.querySelector(".btn").addEventListener("click", async () =>
       {
         let quiz = [];
         for (let question of Question.instances)
@@ -81,7 +81,7 @@ window.onload = async () =>
           quiz.push({"questionId:" : question.instancia.id, "selectedOption": question.marcada});
         }
 
-        let resultados = await Ajax.request({method: "POST", url: `/quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz});
+        let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
         if (resultados instanceof Error) alert("Deu errado");
         else
         {
