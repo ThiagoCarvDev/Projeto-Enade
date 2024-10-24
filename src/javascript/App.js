@@ -1,5 +1,9 @@
 import Ajax from "./ajax.js";
 
+window.addEventListener('popstate', function(event) {
+  console.log('URL:', document.location.href, 'State:', event.state);
+});
+
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");

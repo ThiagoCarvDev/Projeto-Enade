@@ -1,5 +1,10 @@
 import Ajax from "./ajax.js";
 
+window.addEventListener('popstate', function(event) {
+    console.log('URL:', document.location.href, 'State:', event.state);
+    window.location.href = "./perguntas.html";
+});
+
 /**/
 $(document).ready(function() {
     $('#mobile_btn').on('click', function () {
@@ -65,12 +70,13 @@ $(document).ready(function() {
             let usuario = Ajax.parseJWT(Ajax.readCookie("token"));
             let link = event.target.parentElement.parentElement.querySelector(".categoria-title").innerText == 
             "Gerais" ? `quiz/general?userid=${usuario.id}` : `quiz/technical?userid=${usuario.id}&courseid=${usuario.courseId}`;
-            history.pushState(link, "", "./perguntas.html");
-            window.location.href = "./perguntas.html";
+            history.replaceState(link, "", "./perguntas.html");
+            alert("await");
+            
         }));
 
         if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
-        
+        //alert(window.history.state);      
     });
     
 });

@@ -6,6 +6,7 @@ class Question
   /**Identificador da questão. @type {number}*/ 
   id; 
   
+  /**Enunciado da questão. @type {string}*/
   text;
   optionA;
   optionB;

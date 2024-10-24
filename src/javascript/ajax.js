@@ -1,7 +1,8 @@
+/**Classe estática que manipula cookies, tokens e faz requisições a APIs.*/
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://52.207.229.130:8080/api/";
+  static #URLbase = "http://54.92.141.81:8080/api/";
 
 
   /**Função que desemcripta o token e retorna seu valor.
@@ -83,18 +84,7 @@ class Ajax
     body == undefined ? "nada acontece" : reqInit = {...reqInit, "headers": {"Content-Type": "application/json"}, "body": JSON.stringify(body)};
     auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": "Bearer " + auth};
     //reqInit.headers = { ...reqInit.headers, "Content-Type": "application/json"}
-    /*
-    reqInit = 
-    {
-      method: method,
-      headers:
-      {
-        Authorization: "Bearer " + auth,
-        "Content-Type": "application/json"
-      }
-    }
-    */
-    console.warn(reqInit);
+    //console.warn(reqInit);
 
 
     //Requisição
