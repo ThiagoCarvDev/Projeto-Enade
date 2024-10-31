@@ -1,8 +1,18 @@
 import Ajax from "./ajax.js";
 import Question from "./Question.js";
 
-window.addEventListener('popstate', function(event) {
-  console.log('URL:', document.location.href, 'State:', event.state);
+
+window.onbeforeunload = event => 
+{
+  let confirmationMessage = "Tem certeza que deseja sair desta página?";
+  //event.returnValue = confirmationMessage; 
+  return confirmationMessage;
+};
+
+window.addEventListener('popstate', event => 
+{
+  //console.log('URL:', document.location.href, 'State:', event.state);
+  window.location.reload();
 });
 
 window.onload = async () =>
