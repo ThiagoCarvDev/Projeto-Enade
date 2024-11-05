@@ -1,3 +1,9 @@
+import Ajax from "./ajax.js";
+
+window.addEventListener('popstate', function(event) {
+  console.log('URL:', document.location.href, 'State:', event.state);
+});
+
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
@@ -15,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const signUpForm = document.querySelector('.sign-up-form');
 
   // Validação para o formulário de login
-  signInForm.addEventListener('submit', (event) => {
+  signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = signInForm.querySelector('input[type="text"]').value;
     const password = signInForm.querySelector('input[type="password"]').value;
@@ -25,35 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro no login');
-      }
-      return response.json();
-    })
-    .then(loginData => {
-      console.log('Login Response:', loginData);
-      alert('Login bem-sucedido!');
-      // Redirecionar ou realizar outras ações após o login bem-sucedido
-    })
-    .catch(error => {
-      console.error('Erro no login:', error);
-      alert('Falha no login. Verifique suas credenciais.');
+    let resposta = await Ajax.request(
+    {
+      method: "POST", 
+      url: "auth/login", 
+      body: {username: username, password: password}
     });
+
+    if (resposta instanceof Error) alert('Falha no login. Verifique suas credenciais.');
+    else
+    {
+      Ajax.createCookie("token", resposta.token, 1 / 48);
+      window.location.href = "./src/pages/telaPrincipal.html";
+    }
   });
 
   // Validação para o formulário de cadastro
-  signUpForm.addEventListener('submit', (event) => {
+  signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = signUpForm.querySelector('input[type="text"]').value;
     const email = signUpForm.querySelector('input[type="email"]').value;
@@ -86,35 +80,35 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    fetch('http://localhost:8080/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    let resposta = await Ajax.request(
+    {
+      method: "POST",
+      url: "auth/register",
+      body: 
+      {
         username: username,
         email: email,
         password: password,
         role: ["user"],
         courseId: courseId
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro no cadastro');
       }
-      return response.json();
-    })
-    .then(registerData => {
-      console.log('Register Response:', registerData);
-      alert('Cadastro bem-sucedido!');
-      // Opcionalmente, você pode automaticamente logar o usuário após o cadastro
-      // ou redirecioná-lo para a página de login.
-      window.location.href = 'index.html';
-    })
-    .catch(error => {
-      console.error('Erro no cadastro:', error);
-      alert('Falha no cadastro. Verifique os dados e tente novamente.');
     });
+
+    if (resposta instanceof Error) alert('Falha no cadastro. Verifique os dados e tente novamente.');
+    else
+    {
+      let login = await Ajax.request({
+        method: "POST",
+        url: "auth/login",
+        body: {username: username, password: password}
+      });
+
+      if (login instanceof Error) alert('Cadastro feito, porém falha no login.');
+      else
+      {
+        Ajax.createCookie("token", login.token, 1 / 48);
+        window.location.href = "./src/pages/telaPrincipal.html";
+      }
+    }
   });
 });

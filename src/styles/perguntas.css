@@ -1,0 +1,54 @@
+@import url(/src/styles/styles.css);
+
+body {
+    background-color: #ede7f6;
+    font-family: Roboto, Sans-serif;
+}
+
+.form {
+    height: auto; /* Ajuste automático conforme conteúdo */
+    width: 50%;
+    margin: auto;
+}
+
+.required {
+    font-size: 13px;
+    color: red;
+}
+
+.title-div, .question-div {
+    background-color: #FDFEFE;
+    margin: 15px 0 15px 0;
+    padding: 25px;
+    border-radius: 8px;
+    border-top: 8px solid #6703c4;
+}
+
+.question-div {
+    width: 100%;
+}
+
+.name {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.input-div label {
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #6703c4;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.last-div h2 {
+    text-align: center;
+    color: #a2a4a6;
+    font-weight: 200;
+}

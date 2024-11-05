@@ -1,3 +1,5 @@
+import Ajax from "./ajax.js";
+
 /**/
 $(document).ready(function() {
     $('#mobile_btn').on('click', function () {
@@ -52,4 +54,22 @@ $(document).ready(function() {
         duration: 1000,
         distance: '20%'
     })
+
+
+
+
+    $(document).ready(function () {
+        document.querySelectorAll(".categoria .entra").forEach(botao => botao.addEventListener("click", async event =>
+        {
+            let {id, courseId} = Ajax.parseJWT(Ajax.readCookie("token"));
+            let link = event.target.parentElement.parentElement.querySelector(".categoria-title").innerText == 
+            "Gerais" ? `quiz/general?userid=${id}` : `quiz/technical?userid=${id}&courseid=${courseId}`;
+            history.pushState(link, "", "./perguntas.html");
+            window.location.reload();
+        }));
+
+        if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
+            
+    });
+    
 });

@@ -1,16 +1,22 @@
 footer {
     background-color: var(--color-primary-2);
+
+}
+
+footer img{
+    width: 100%;
 }
 
 #footer_items {
     display: flex;
     justify-content: space-between;
-    padding: 24px 8% 24px 8%;
+    padding: 20px 8% 24px 8%;
     align-items: center;
+    border: 1px solid;
 }
 
 #copyright {
-    color: var(--color-neutral-1);;
+    color: var(--color-neutral-0);
     font-weight: 500;
 }
 

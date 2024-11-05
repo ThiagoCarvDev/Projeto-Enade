@@ -74,6 +74,7 @@ form {
   grid-row: 1 / 2;
 }
 
+
 form.sign-up-form {
   opacity: 0;
   z-index: 1;
