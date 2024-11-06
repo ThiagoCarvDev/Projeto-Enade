@@ -52,6 +52,11 @@ window.onload = async () =>
         else
         {
           console.warn(resultados);
+          // Salva os resultados no sessionStorage para serem acessados na tela de resultados
+        sessionStorage.setItem("quizResultados", JSON.stringify(resultados));
+
+        // Redireciona para a tela de resultados
+        window.location.href = "./pages/resultado.html";
         }
       });
     }
