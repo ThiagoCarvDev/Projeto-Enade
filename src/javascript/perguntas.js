@@ -56,8 +56,9 @@ window.onload = async () =>
         sessionStorage.setItem("quizResultados", JSON.stringify(resultados));
 
         // Redireciona para a tela de resultados
-        window.location.href = "./pages/resultado.html";
+        window.location.href = "./src/pages/resultado.html";
         }
+        
       });
     }
     

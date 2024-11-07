@@ -1,40 +1,35 @@
-// Verifica se há resultados no sessionStorage
-const resultados = JSON.parse(sessionStorage.getItem("quizResultados"));
+window.onload = () => {
+  // Obtém os dados de resultados armazenados no localStorage (ou vindos da resposta do backend diretamente)
+  let resultados = JSON.parse(localStorage.getItem("resultadosQuiz"));
 
-if (resultados) {
-  // Função para exibir os resultados na tela
-  function atualizarResultados(resultados) {
-    const resultadosDiv = document.querySelector(".resultados");
-    let acertos = 0;
+  if (resultados) {
+    // Extrai a quantidade de acertos, erros e calcula a porcentagem
+    let correctCount = resultados.correctCount;
+    let incorrectCount = resultados.incorrectCount;
+    let totalQuestions = correctCount + incorrectCount;
+    let porcentagem = ((correctCount / totalQuestions) * 100).toFixed(2);
 
-    resultados.forEach((resultado) => {
-      const perguntaDiv = document.createElement("div");
-      perguntaDiv.classList.add("pergunta");
-      perguntaDiv.innerText = resultado.pergunta;  // Exibe a pergunta (pode precisar de ajuste dependendo dos dados)
+    // Exibe o quadro de resultados com a quantidade de acertos, erros e porcentagem
+    let quadroResultados = document.querySelector("#quadroResultados");
+    quadroResultados.innerHTML = `
+      <p>Acertos: ${correctCount}</p>
+      <p>Erros: ${incorrectCount}</p>
+      <p>Porcentagem de Acertos: ${porcentagem}%</p>
+    `;
 
-      if (resultado.correta) {
-        perguntaDiv.classList.add("correta");
-        acertos++;
-      } else {
-        perguntaDiv.classList.add("incorreta");
-      }
-
-      resultadosDiv.appendChild(perguntaDiv);
+    // Exibe cada pergunta e a resposta do usuário, destacando acertos e erros
+    let perguntasContainer = document.querySelector("#perguntasResultados");
+    resultados.results.forEach((pergunta, index) => {
+      let cor = pergunta.isCorrect ? "green" : "red"; // Mude para `isCorrect` ou `correct` conforme o backend define
+      perguntasContainer.innerHTML += `
+        <div style="color:${cor}; margin-bottom: 15px;">
+          <p>Pergunta ${index + 1}: ${pergunta.questionText}</p>
+          <p>Sua resposta: ${pergunta.userAnswer}</p>
+          <p>Resposta correta: ${pergunta.correctAnswer}</p>
+        </div>
+      `;
     });
-
-    const totalPerguntas = resultados.length;
-    const erros = totalPerguntas - acertos;
-    const percentualAcertos = ((acertos / totalPerguntas) * 100).toFixed(2);
-
-    document.getElementById("acertos").innerText = acertos;
-    document.getElementById("erros").innerText = erros;
-    document.getElementById("percentual").innerText = percentualAcertos;
+  } else {
+    alert("Não foi possível carregar os resultados.");
   }
-
-  // Exibe os resultados na página
-  atualizarResultados(resultados);
-} else {
-  // Caso não haja dados no sessionStorage, redireciona para a tela principal
-  alert("Resultados não encontrados. Realize o quiz novamente.");
-  window.location.href = "./telaPrincipal.html";
-}
+};
