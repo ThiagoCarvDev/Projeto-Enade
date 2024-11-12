@@ -1,6 +1,9 @@
+import Question from "./Question.js";
+
 window.onload = () => {
   // Obtém os dados de resultados armazenados no localStorage (ou vindos da resposta do backend diretamente)
-  let resultados = JSON.parse(localStorage.getItem("resultadosQuiz"));
+  let resultados = JSON.parse(sessionStorage.getItem("quizResultados"));
+  console.log(resultados);
 
   if (resultados) {
     // Extrai a quantidade de acertos, erros e calcula a porcentagem
@@ -29,6 +32,16 @@ window.onload = () => {
         </div>
       `;
     });
+
+    resultados.results.forEach((pergunta, index) =>
+    {
+      console.warn(new Question(pergunta));
+      console.log(index);
+      
+    });
+    
+    console.log(Question.instances);
+    
   } else {
     alert("Não foi possível carregar os resultados.");
   }

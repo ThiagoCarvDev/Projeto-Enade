@@ -44,19 +44,27 @@ window.onload = async () =>
         let quiz = [];
         for (let question of Question.instances)
         {
-          quiz.push({"questionId": question.instancia.id, "selectedOption": question.marcada});
+          quiz.push({"questionId": question.instancia.id, "selectedOption": question.instancia.selectedOption});
         }
 
         let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
-        if (resultados instanceof Error) alert("Deu errado");
+        if (resultados instanceof Error) alert("Falha de conexão.");
         else
         {
           console.warn(resultados);
-          // Salva os resultados no sessionStorage para serem acessados na tela de resultados
-        sessionStorage.setItem("quizResultados", JSON.stringify(resultados));
 
-        // Redireciona para a tela de resultados
-        window.location.href = "./src/pages/resultado.html";
+          resultados.results.forEach((pergunta) =>
+          {
+            let questao = Question.getOneInstance(pergunta.questionId);
+            questao.instancia.correct = pergunta.correct;
+          });
+
+          
+          // Salva os resultados no sessionStorage para serem acessados na tela de resultados
+          sessionStorage.setItem("quizResultados", JSON.stringify(resultados));
+
+          // Redireciona para a tela de resultados
+          window.location.href = "./resultado.html";
         }
         
       });
