@@ -1,22 +1,119 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f4ff;
+  color: #333;
+}
 
-.resumo {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .resultados .pergunta {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    border-radius: 5px;
-  }
-  
-  .correta {
-    background-color: #d4f4dd; /* verde claro para correto */
-  }
-  
-  .incorreta {
-    background-color: #f4d4d4; /* vermelho claro para incorreto */
-  }
-  
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.result-header h1 {
+  font-size: 1.5rem;
+}
+
+.score {
+  background: #eef2ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.score h2 {
+  font-size: 2rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.stats span b {
+  color: #007bff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.exit {
+  background: #6c757d;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+main h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.question-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.question-card h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.question-card p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.options {
+  margin-top: 15px;
+}
+
+.options label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.options input[type="radio"] {
+  margin-right: 10px;
+}
