@@ -8,27 +8,34 @@ class Question
   
   /**Enunciado da questão. @type {string}*/
   text;
+
+  /**Alternativa certa. @type {string}*/
+  correctAnswer;
+
+  /**Alternativa marcada. @type {string} */
+  selectedOption;
+
   optionA;
   optionB;
   optionC;
   optionD;
-  correctAnswer;
+
 
 
   /**Contém todas as instâncias de Question criadas. 
-   * @type {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number}>}*/
+   * @type {Array<{instancia: Question, local: HTMLDivElement, numero: number}>}*/
   static #instances = [];
   
   /**@param {{instancia: Question, local: HTMLDivElement}} instance*/
   static set instances(instance)
   {
-    instance.marcada = null;
+    instance.instancia.selectedOption = null;
     instance.numero = Question.instances.length + 1;
     this.#instances.push(instance);
   }
 
   /**Retorna todas as instâncias de Question criadas. Ela relaciona a questão ao seu respectivo elemento HTML na página.
-   * @returns {Array<{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number}>}*/
+   * @returns {Array<{instancia: Question, local: HTMLDivElement, numero: number}>}*/
   static get instances()
   {
     return this.#instances;
@@ -37,7 +44,7 @@ class Question
 
 
   /**Seleciona uma instância de Question com base no seu ID. Retorna um objeto contendo a instância e seu respectivo elemento HTML.
-   * @param {number} id @returns {{instancia: Question, local: HTMLDivElement, marcada: string | null, numero: number} | null}*/
+   * @param {number} id @returns {{instancia: Question, local: HTMLDivElement, numero: number} | null}*/
   static getOneInstance(id)
   {
     for (let question of Question.instances)
@@ -60,7 +67,7 @@ class Question
   {
     //console.log(element);
     let question = Question.getOneInstance(parseInt(element.id.match(/\d+/g)[0]));
-    question.marcada = element.value.toUpperCase();
+    question.instancia.selectedOption = element.value.toUpperCase();
     //console.log(question);
   }
 
@@ -79,7 +86,8 @@ class Question
     element.replaceChildren();
     element.className = "question-div";
     questionDiv(this, element);
-  
+    
+    console.error([this, element]);
     Question.instances = {"instancia": this, "local": element};
   }
 
