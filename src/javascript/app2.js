@@ -25,7 +25,7 @@ const emailError = document.getElementById('emailError');
         if (resposta instanceof Error) 
         {   
             console.error(resposta);
-            let httpStatus = resposta.message.match(/d+/g)[0];
+            let httpStatus = error.message.match(/\d+/)?.[0];
             switch (httpStatus)
             {
                 case "404":
