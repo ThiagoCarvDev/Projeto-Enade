@@ -117,3 +117,33 @@ main h2 {
 .options input[type="radio"] {
   margin-right: 10px;
 }
+
+/* Estilo para respostas corretas */
+.resposta-certa {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724; /* Verde escuro */
+  border: 2px solid #c3e6cb; /* Bordas verde claro */
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Estilo para respostas erradas */
+.resposta-errada {
+  background-color: #f8d7da; /* Vermelho claro */
+  color: #721c24; /* Vermelho escuro */
+  border: 2px solid #f5c6cb; /* Bordas vermelho claro */
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Efeito de hover para melhor experiência */
+.resposta-certa:hover, 
+.resposta-errada:hover {
+  opacity: 0.9;
+}
