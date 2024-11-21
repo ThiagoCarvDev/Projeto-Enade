@@ -1,28 +1,77 @@
+/* Estilo do footer existente */
 footer {
-    background-color: var(--color-primary-2);
-
+    background-image: var(--color-background-0);
+    width: 100%;
+    height: auto; /* Ajustado para adaptar ao conteúdo */
 }
 
-footer img{
+footer img {
     width: 100%;
 }
 
-#footer_items {
+/* Adicionando novas seções */
+#footer_content {
     display: flex;
     justify-content: space-between;
-    padding: 20px 8% 24px 8%;
-    align-items: center;
-    border: 1px solid;
+    flex-wrap: wrap; /* Permite ajuste para dispositivos menores */
+    padding: 24px 8%;
+    gap: 20px; /* Espaçamento entre as seções */
 }
 
-#copyright {
-    color: var(--color-neutral-0);
-    font-weight: 500;
+/* Estilo das seções no footer */
+.footer-section {
+    flex: 1; /* Garante que cada seção ocupe o espaço disponível */
+    min-width: 280px; /* Largura mínima para manter legibilidade */
 }
 
+.footer-section h4 {
+    font-size: 18px;
+    color: var(--color-neutral-1); /* Cor harmonizada com o restante */
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    color: var(--color-neutral-1);
+    line-height: 1.5;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    font-size: 14px;
+    color: var(--color-neutral-1);
+    line-height: 1.4;
+}
+
+/* Estilo para o copyright */
+#footer_bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 14px;
+    color: var(--color-neutral-1);
+    border-top: 1px solid var(--color-neutral-1); /* Separador visual */
+}
+
+/* Responsividade */
 @media screen and (max-width: 600px) {
     #footer_items {
         flex-direction: column;
         gap: 20px;
+        padding: 24px 8%; /* Mantém espaçamento responsivo */
+    }
+
+    #footer_content {
+        flex-direction: column; /* Organiza as seções em coluna */
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px; /* Espaçamento entre as seções */
     }
 }

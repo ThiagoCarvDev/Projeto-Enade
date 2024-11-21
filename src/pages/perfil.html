@@ -15,19 +15,16 @@
             <!-- Links para as seções -->
             <ul id="nav_list">
                 <li class="nav-item active">
-                    <a href="#home">Início</a>
+                    <a href="/src/pages/telaPrincipal.html#home">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#quiz">Quiz</a>
+                    <a href="/src/pages/telaPrincipal.html#quiz">Quiz</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#conhecanos">Sobre</a>
+                    <a href="/src/pages/telaPrincipal.html#conhecanos">Sobre</a>
                 </li>
             </ul>
-            <!-- Botão do perfil -->
-            <button class="btn-default">
-                <a href="/src/pages/perfil.html">Perfil</a>
-            </button>
+    
             <!-- Ícone para menu mobile -->
             <button id="mobile_btn">
                 <i class="fa-solid fa-bars"></i>
@@ -38,46 +35,120 @@
         <div id="mobile_menu">
             <!-- Links para as seções -->
             <ul id="mobile_nav_list">
-                <li class="nav-item">
-                    <a href="#home">Início</a>
+                <li class="nav-item active">
+                    <a href="/src/pages/telaPrincipal.html#home">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#quiz">Quiz</a>
+                    <a href="/src/pages/telaPrincipal.html#quiz">Quiz</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#conhecanos">Sobre</a>
+                    <a href="/src/pages/telaPrincipal.html#conhecanos">Sobre</a>
                 </li>
-            </ul>
-
-            <button class="btn-default">
-                Perfil
-            </button>
-            
+            </ul>            
         </div>
     </header>
 
-    <main>
-        <div class = "teto"></div>
-        <div class = "profile-pic"></div>
-
-        <div class="input-field">
-            <i class="fas fa-user" aria-hidden="true"></i>
-            <input type="text" id="loginUsername" value = "Fulano Cicrano Beltrano" disabled>
-        </div>
-
-        <div class="input-field">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <input type="email" id="registerEmail" maxlength="50" value = "fulaninho@gmail.com" disabled>
-            <small class="error-message" id="emailError"></small>
+    <main id="content">
+        <div class="perfil-container">
+            <div class="profile-section">
+                <div class="inf_perfil">
+                    <h2>Aparecida Lima</h2>
+                    <p class="email">clima.silva22@gmail.com</p>
+                    <p class="course">Análise e Desenvolvimento de Sistemas</p>
+                </div>
+                <div class="estatistica_perfil">
+                    <h3>Estatísticas</h3>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-icon">🔥</span>
+                            <p>28</p>
+                            <span>Dias seguidos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <p>8928</p>
+                            <span>Total de XP</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🏅</span>
+                            <p>Ouro</p>
+                            <span>Divisão</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🥇</span>
+                            <p>4</p>
+                            <span>Pódios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="ranking-section">
+                <h3>Ranking</h3>
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Nome</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🥇</td>
+                            <td>Aparecida Lima</td>
+                            <td>1500</td>
+                        </tr>
+                        <tr>
+                            <td>🥈</td>
+                            <td>João Silva</td>
+                            <td>1400</td>
+                        </tr>
+                        <tr>
+                            <td>🥉</td>
+                            <td>Maria Santos</td>
+                            <td>1300</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Carlos Andrade</td>
+                            <td>1200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
+    
 
     <footer>
         <picture>
-            <img src = "../../assets/img/Logo.png"/>
+            <img src ="../img/modelo1.svg">
         </picture>
+        <div id="footer_content">
+            <!-- Informações sobre a universidade -->
+            <div class="footer-section">
+                <h4>Sobre a UNINASSAU Caruaru - PE</h4>
+                <p>
+                    A UNINASSAU Caruaru oferece cursos de excelência, promovendo ensino de qualidade e preparando seus alunos para o mercado de trabalho. Com infraestrutura moderna e professores qualificados, a instituição se destaca como uma referência em educação superior na região.
+                </p>
+            </div>
+    
+            <!-- Informações sobre os desenvolvedores -->
+            <div class="footer-section">
+                <h4>Desenvolvedores do Sistema</h4>
+                <p>
+                    Este projeto foi desenvolvido pelos alunos do curso de Análise e Desenvolvimento de Sistemas (ADS) da UNINASSAU Caruaru. A equipe está comprometida em criar soluções inovadoras que contribuam para o sucesso acadêmico e profissional.
+                </p>
+                <ul>
+                    <li><strong>Contato do grupo:</strong> (81) 9**** - ****</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div id="footer_bottom">
+            <span>&copy; Equipe UNINASSAU - Todos os direitos reservados.</span>
+        </div>
     </footer>
-
-    <script type = "module" src = "../javascript/perfil.js" defer></script>
 </body>
 </html>
