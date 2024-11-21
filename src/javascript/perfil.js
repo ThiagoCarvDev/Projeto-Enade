@@ -1,4 +1,4 @@
-import Ajax from "./ajax.js";
+import Ajax from "./modules/Ajax.js";
 
 
 window.onload = async () =>
@@ -16,6 +16,8 @@ window.onload = async () =>
     {
         console.log("Reposta do perfil: ");
         console.warn(perfil);
+        console.log("Comparação com o token: ");
+        console.error(Ajax.parseJWT(token));
     }
 
     let ranking = await Ajax.request({method: "GET", url: "users/ranking", auth: token});
