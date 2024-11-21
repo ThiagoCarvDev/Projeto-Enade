@@ -1,5 +1,5 @@
 import Ajax from "./ajax.js";
-import Question from "./Question.js";
+import {Question, QuestQuiz} from "./Question.js";
 
 
 window.onbeforeunload = event => 
@@ -36,7 +36,7 @@ window.onload = async () =>
     {
       resposta.forEach((json, index, jsonteste)=>
       {
-        questArray.push(new Question(json, divs[index]))
+        questArray.push(new QuestQuiz(json, divs[index]))
       });
 
       document.querySelector(".btn").addEventListener("click", async () =>
@@ -55,8 +55,8 @@ window.onload = async () =>
 
           resultados.results.forEach((pergunta) =>
           {
-            let questao = Question.getOneInstance(pergunta.questionId);
-            questao.instancia.correct = pergunta.correct;
+            //let questao = Question.getOneInstance(pergunta.questionId);
+            //questao.instancia.correct = pergunta.correct;
           });
 
           

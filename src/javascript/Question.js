@@ -1,13 +1,9 @@
 import questionDiv from "./QuestionDiv.js";
+import questionCard from "./questionCard.js";
 
 /**Classe que representa os objetos extraídos do JSON da API. Possui também métodos estáticos para manipualção das suas instâncias.*/
 class Question
 {
-  /**Identificador da questão. @type {number}*/ 
-  id; 
-  
-  /**Enunciado da questão. @type {string}*/
-  text;
 
   /**Alternativa certa. @type {string}*/
   correctAnswer;
@@ -49,7 +45,7 @@ class Question
   {
     for (let question of Question.instances)
     {
-      if (question.instancia.id === id)
+      if (question.instancia.id === id || question.instancia.questionId === id)
       {
         return question;
       }
@@ -65,16 +61,14 @@ class Question
    * @param {HTMLInputElement} element ID do elemento HTML em formato string. @returns {void}*/
   static selectOption(element)
   {
-    //console.log(element);
     let question = Question.getOneInstance(parseInt(element.id.match(/\d+/g)[0]));
     question.instancia.selectedOption = element.value.toUpperCase();
-    //console.log(question);
   }
 
 
 
   /**@param {Question} quest @param {HTMLDivElement} element*/
-  constructor(quest, element = document.createElement("div"))
+  constructor(quest, element)
   {
     //Transfusão do JSON para um objeto de Question
     for (let q in quest)
@@ -82,15 +76,52 @@ class Question
       this[q] = quest[q];
     }
     
-    //Criando o elemento HTMl da pergunta
     element.replaceChildren();
-    element.className = "question-div";
-    questionDiv(this, element);
-    
-    console.error([this, element]);
     Question.instances = {"instancia": this, "local": element};
   }
 
 }
 
-export default Question;
+class QuestQuiz extends Question
+{
+  //polimorfismo dos atributos apenas, sobrescrita dos métodos estáticos
+
+  /**Identificador da questão. @type {number}*/ 
+  id; 
+  
+  /**Enunciado da questão. @type {string}*/
+  text;
+
+  /**@param {Question} quest @param {HTMLDivElement} element*/
+  constructor(quest, element = document.createElement("div"))
+  {
+    super(quest, element);
+    this.id = quest.id;
+    this.text = quest.text;
+    element.className = "question-div";
+    questionDiv(this, element);
+  }
+
+
+}
+
+class QuestResult extends Question
+{
+  /**Identificador da questão. @type {number}*/ 
+  questionId; 
+  
+  /**Enunciado da questão. @type {string}*/
+  questionText;
+
+  /**@param {Question} quest @param {HTMLDivElement} element*/
+  constructor(quest, element = document.createElement("div"))
+  {
+    super(quest, element);
+    this.questionId = quest.questionId;
+    this.questionText = quest.questionText;
+    element.className = "question-card";
+    questionCard(this, element);
+  }
+}
+
+export {Question, QuestQuiz, QuestResult};

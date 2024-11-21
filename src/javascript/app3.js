@@ -1,5 +1,9 @@
+import Ajax from "./ajax.js";
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const token = urlParams.get('token');
+console.log(token);
 
 document.getElementById('reset-password-form').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -20,22 +24,18 @@ document.getElementById('reset-password-form').addEventListener('submit', async 
     };
     
     try {
-        const response = await fetch('http://3.82.216.128:8080/api/auth/reset-password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });
+        const response = await Ajax.request({method: "POST", url: "auth/reset-password", body: requestBody}); 
+       
         
-        if (response.ok) {
+        if (!(response instanceof Error)) {
             // Exibir mensagem de sucesso e redirecionar ou limpar o formulário
             alert('Senha redefinida com sucesso!');
             // Redirecionar para a página de login ou outra página
-            window.location.href = 'index.html';
+            window.location.href = '../../index.html';
         } else {
             // Tratar erros
-            alert('Erro ao redefinir senha. Tente novamente.');
+            console.error(response);
+            alert('Erro de conexão. Tente novamente mais tarde.');
         }
     } catch (error) {
         console.error('Erro de rede', error);

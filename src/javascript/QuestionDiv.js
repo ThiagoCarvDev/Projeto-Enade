@@ -1,11 +1,11 @@
-import Question from "./Question.js";
+import {Question} from "./Question.js";
 
 function questionDiv(thiss, element)
 {
     //Texto da questão
     let name = document.createElement("div");
     name.className = "name";
-    name.innerText = (Question.instances.length + 1) + ". " + thiss.text;
+    name.innerText = (Question.instances.length) + ". " + thiss.text;
     
     //Spam
     let span = document.createElement("span");

@@ -2,7 +2,7 @@
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://107.23.50.78:8080/api/auth/forgot-password";
+  static #URLbase = "http://107.23.50.78:8080/api/";
 
 
   /**Função que desemcripta o token e retorna seu valor.
@@ -83,8 +83,6 @@ class Ajax
     let reqInit = {"method": method};
     body == undefined ? "nada acontece" : reqInit = {...reqInit, "headers": {"Content-Type": "application/json"}, "body": JSON.stringify(body)};
     auth == undefined ? "nada acontece" : reqInit.headers = {...reqInit.headers, "Authorization": "Bearer " + auth};
-    //reqInit.headers = { ...reqInit.headers, "Content-Type": "application/json"}
-    //console.warn(reqInit);
 
 
     //Requisição
