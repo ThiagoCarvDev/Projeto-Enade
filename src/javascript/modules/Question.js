@@ -1,7 +1,6 @@
-import questionDiv from "./QuestionDiv.js";
-import questionCard from "./questionCard.js";
-
-/**Classe que representa os objetos extraídos do JSON da API. Possui também métodos estáticos para manipualção das suas instâncias.*/
+/**Classe abstrata que representa os objetos extraídos do JSON da API. Possui também métodos estáticos para manipualção das suas instâncias.
+ * @abstract
+*/
 class Question
 {
 
@@ -25,7 +24,7 @@ class Question
   /**@param {{instancia: Question, local: HTMLDivElement}} instance*/
   static set instances(instance)
   {
-    instance.instancia.selectedOption = null;
+    instance.instancia.selectedOption = instance.instancia.selectedOption || null;
     instance.numero = Question.instances.length + 1;
     this.#instances.push(instance);
   }
@@ -82,46 +81,4 @@ class Question
 
 }
 
-class QuestQuiz extends Question
-{
-  //polimorfismo dos atributos apenas, sobrescrita dos métodos estáticos
-
-  /**Identificador da questão. @type {number}*/ 
-  id; 
-  
-  /**Enunciado da questão. @type {string}*/
-  text;
-
-  /**@param {Question} quest @param {HTMLDivElement} element*/
-  constructor(quest, element = document.createElement("div"))
-  {
-    super(quest, element);
-    this.id = quest.id;
-    this.text = quest.text;
-    element.className = "question-div";
-    questionDiv(this, element);
-  }
-
-
-}
-
-class QuestResult extends Question
-{
-  /**Identificador da questão. @type {number}*/ 
-  questionId; 
-  
-  /**Enunciado da questão. @type {string}*/
-  questionText;
-
-  /**@param {Question} quest @param {HTMLDivElement} element*/
-  constructor(quest, element = document.createElement("div"))
-  {
-    super(quest, element);
-    this.questionId = quest.questionId;
-    this.questionText = quest.questionText;
-    element.className = "question-card";
-    questionCard(this, element);
-  }
-}
-
-export {Question, QuestQuiz, QuestResult};
+export default Question;

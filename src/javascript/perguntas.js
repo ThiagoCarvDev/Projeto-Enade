@@ -1,5 +1,6 @@
-import Ajax from "./ajax.js";
-import {Question, QuestQuiz} from "./Question.js";
+import Ajax from "./modules/Ajax.js";
+import Question from "./modules/Question.js";
+import QuestQuiz from "./modules/QuestQuiz.js";
 
 
 window.onbeforeunload = event => 
@@ -20,12 +21,11 @@ window.onload = async () =>
     let divs = Array.from(document.querySelectorAll(".question-div"));
     let questArray = [];
     let token = Ajax.readCookie("token"); 
-    //alert(JSON.stringify(Ajax.parseJWT(token)))
-    //alert(window.history.state); // <---- o link da requisição
-    //console.warn(token) 
     
     
     let resposta = await Ajax.request({method: "GET", url: history.state, auth: token}); 
+    const state = /general/g.test(window.history.state) ? "gerais" : "técnicas";
+    //console.error(window.history.state.match(/general/g)[1]); 
     window.history.replaceState(null, "", window.location.pathname);
     if (resposta instanceof Error) 
     { 
@@ -39,36 +39,34 @@ window.onload = async () =>
         questArray.push(new QuestQuiz(json, divs[index]))
       });
 
+
       document.querySelector(".btn").addEventListener("click", async () =>
       {
         let quiz = [];
+        let emBranco = 0;
         for (let question of Question.instances)
         {
           quiz.push({"questionId": question.instancia.id, "selectedOption": question.instancia.selectedOption});
+          if (question.instancia.selectedOption === null) emBranco++;
         }
 
-        let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
-        if (resultados instanceof Error) alert("Falha de conexão.");
-        else
+        let aviso = emBranco === 0 ? "Certeza que deseja concluir o quiz?" : "Você possui " + emBranco + 
+        " questões não respondidas. Enviar mesmo assim?";
+
+        if (window.confirm(aviso))
         {
-          console.warn(resultados);
-
-          resultados.results.forEach((pergunta) =>
+          let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
+          if (resultados instanceof Error) alert("Falha de conexão.");
+          else
           {
-            //let questao = Question.getOneInstance(pergunta.questionId);
-            //questao.instancia.correct = pergunta.correct;
-          });
+            // Salva os resultados no sessionStorage para serem acessados na tela de resultados
+            sessionStorage.setItem("quizResultados", JSON.stringify([resultados, state]));
 
-          
-          // Salva os resultados no sessionStorage para serem acessados na tela de resultados
-          sessionStorage.setItem("quizResultados", JSON.stringify(resultados));
-
-          // Redireciona para a tela de resultados
-          window.location.href = "./resultado.html";
+            // Redireciona para a tela de resultados
+            window.onbeforeunload = null;
+            window.location.href = "./resultado.html";
+          }
         }
-        
       });
     }
-    
-    
 }

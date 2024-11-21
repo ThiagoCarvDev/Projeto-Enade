@@ -1,4 +1,6 @@
-/**Classe estática que manipula cookies, tokens e faz requisições a APIs.*/
+/**Classe estática que manipula cookies, tokens e faz requisições a APIs.
+ * @static
+*/
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/

@@ -1,4 +1,4 @@
-import Ajax from "./ajax.js";
+import Ajax from "./modules/Ajax.js";
 
 // Selecionando os elementos corretos
 document.addEventListener('DOMContentLoaded', () => {

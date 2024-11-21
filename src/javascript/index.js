@@ -1,4 +1,4 @@
-import Ajax from "./ajax.js";
+import Ajax from "./modules/Ajax.js";
 
 window.addEventListener('popstate', function(event) {
   console.log('URL:', document.location.href, 'State:', event.state);

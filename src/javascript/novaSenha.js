@@ -1,4 +1,4 @@
-import Ajax from "./ajax.js";
+import Ajax from "./modules/Ajax.js";
 
 
 const urlParams = new URLSearchParams(window.location.search);
