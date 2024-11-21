@@ -5,14 +5,9 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f0f4ff;
-  color: #333;
-}
 
-.container {
+
+.cont_result {
   max-width: 900px;
   margin: 20px auto;
   padding: 20px;
@@ -23,11 +18,14 @@ body {
 
 .result-header {
   text-align: center;
+  padding: 2%;
   margin-bottom: 20px;
+  background-image: var(--color-background-0);
 }
 
 .result-header h1 {
   font-size: 1.5rem;
+  font-family: var(--font-primary);
 }
 
 .score {
@@ -40,14 +38,20 @@ body {
 .score h2 {
   font-size: 2rem;
   color: #007bff;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
   font-size: 1rem;
-  margin: 10px 0;
+  margin: 5% 10%;
+}
+.stats span {
+  font-size: 18px; /* Escolha o tamanho desejado */
+  font-weight: bold; /* Opcional: destaca o texto */
+  color: #333; /* Opcional: altera a cor */
 }
 
 .stats span b {
