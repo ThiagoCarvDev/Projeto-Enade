@@ -46,4 +46,109 @@ let loginteste =
   "password": "testando123"
 }
 
-export {jsonteste, apiteste, posteste, loginteste}
+let rankteste =
+[
+  {
+    username: "JVQN",
+    score: 9999
+  },
+
+  {
+    username: "BRProMaster",
+    score: 8000
+  },
+
+  {
+    username: "Pi²",
+    score: 2048
+  },
+
+  {
+    username: "Loi Neandertal",
+    score: 1997
+  },
+
+  {
+    username: "Boina",
+    score: 300
+  },
+
+  {
+    username: "Jogador sem nome",
+    score: 0
+  },
+]
+
+let cursos = 
+[
+  "Escolha seu curso",
+  "Administração",
+  "Análise e Desenvolvimento de Sistemas",
+  "Arquitetura e Urbanismo",
+  "Biomedicina",
+  "Ciências Aeronáuticas",
+  "Ciências Biológicas - Licenciatura",
+  "Ciências Contábeis",
+  "Ciências Econômicas",
+  "Coding",
+  "Computação em Nuvem (Cloud Computing)",
+  "Data Science",
+  "Design de Interiores",
+  "Digital Security",
+  "Direito",
+  "E-Commerce",
+  "Educação Especial - Licenciatura",
+  "Educação Física - Bacharelado",
+  "Educação Física - Licenciatura",
+  "Empreendedorismo Digital",
+  "Enfermagem",
+  "Engenharia Civil",
+  "Engenharia de Produção",
+  "Engenharia Elétrica",
+  "Engenharia Mecânica",
+  "Estética e Cosmética",
+  "Farmácia",
+  "Filmmaker",
+  "Fisioterapia",
+  "Fonoaudiologia",
+  "Game Design",
+  "Gastronomia",
+  "Geografia",
+  "Gestão Ambiental",
+  "Gestão Comercial",
+  "Gestão da Qualidade",
+  "Gestão da Tecnologia da Informação",
+  "Gestão de Recursos Humanos",
+  "Gestão de Serviços Jurídicos e Notariais",
+  "Gestão de Trânsito",
+  "Gestão Financeira",
+  "Gestão Hospitalar",
+  "Gestão Pública",
+  "História",
+  "Inteligência Artificial",
+  "Internet das Coisas",
+  "Letras - Espanhol",
+  "Letras - Inglês",
+  "Letras - Português",
+  "Logística",
+  "Marketing",
+  "Matemática",
+  "Medicina",
+  "Medicina Veterinária",
+  "Negócios Imobiliários",
+  "Nutrição",
+  "Odontologia",
+  "Pedagogia",
+  "Podologia",
+  "Processos Gerenciais",
+  "Psicologia",
+  "Segunda Licenciatura em Letras - Espanhol",
+  "Segunda Licenciatura em Letras - Inglês",
+  "Segunda Licenciatura em Letras - Português",
+  "Segurança Pública",
+  "Serviço Social",
+  "Teologia",
+  "Terapia Ocupacional"
+];
+
+export {jsonteste, apiteste, posteste, loginteste, rankteste, cursos}

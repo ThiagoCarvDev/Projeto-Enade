@@ -4,7 +4,7 @@
 class Ajax
 {
   /**@readonly @type {string} URL mãe do projeto*/
-  static #URLbase = "http://107.23.50.78:8080/api/";
+  static #URLbase = "http://54.152.39.68:8080/api/";
 
 
   /**Função que desemcripta o token e retorna seu valor.
@@ -98,36 +98,39 @@ class Ajax
       {
         //Avisa quando der erro com requisição bem sucedida. É necessário + 1 log para ser mostrado
         console.log("ERRO QUE NÃO É DE REDE: " + resposta.status);
+        let mensagem = "";
         switch (resposta.status)
         {
           case 500:
-            throw new Error("erro: Problemas no servidor " + resposta.status);
+            mensagem = "erro: Problemas no servidor";
             break;
 
           case 405:
-            throw new Error("erro: Método HTTP não permitido " + resposta.status);
+            mensagem = "erro: Método HTTP não permitido";
             break;
 
           case 404:
-            throw new Error("erro: Recurso não encontrado " + resposta.status);
+            mensagem = "erro: Recurso não encontrado";
             break;
 
           case 403:
-            throw new Error("erro: Acesso negado " + resposta.status);
+            mensagem = "erro: Acesso negado";
             break; 
 
           case 401:
-            throw new Error("erro: Credenciais inválidas " + resposta.status);
+            mensagem = "erro: Credenciais inválidas";
             break;
 
           case 400:
-            throw new Error("erro: Requisição inválida " + resposta.status);
+            mensagem = "erro: Requisição inválida";
             break;
 
           default:
-            throw new Error("erro: Erro desconhecido " + resposta.status);
+            mensagem = "erro: Erro desconhecido";
             break;  
         }
+        
+        throw new Error([mensagem, resposta.status, resposta.json.then(value => value)]);
       }    
     }).catch(erro => 
     {

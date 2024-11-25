@@ -94,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    if (resposta instanceof Error) alert('Falha no cadastro. Verifique os dados e tente novamente.');
+    if (resposta instanceof Error) 
+    {
+      alert('Falha no cadastro. Verifique os dados e tente novamente.');
+      console.error(resposta);
+    }
     else
     {
       let login = await Ajax.request({

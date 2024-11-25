@@ -36,7 +36,8 @@ window.onload = async () =>
     {
       resposta.forEach((json, index, jsonteste)=>
       {
-        questArray.push(new QuestQuiz(json, divs[index]))
+        questArray.push(new QuestQuiz(json, divs[index]));
+        
       });
 
 
