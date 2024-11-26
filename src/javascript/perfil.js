@@ -30,11 +30,11 @@ window.onload = async () =>
     }
     
     let ranking = await Ajax.request({method: "GET", url: "users/ranking", auth: token});
-    if (ranking instanceof Error) alert("Deu errado o ranking");
-    else {
-
+    if (ranking instanceof Error) alert("Erro de conexão. Verique sua rede ou tente novamente mais tarde.");
+    else 
+    {
         const limite = 10; // Número máximo de usuários a serem exibidos no ranking
-       document.querySelector(".ranking-table tbody").replaceChildren();
+        document.querySelector(".ranking-table tbody").replaceChildren();
         for (let trow = 0; trow < ranking.length; trow++)
         {
             let medal = "";

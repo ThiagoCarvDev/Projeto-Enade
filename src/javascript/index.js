@@ -38,7 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
       body: {username: username, password: password}
     });
 
-    if (resposta instanceof Error) alert('Falha no login. Verifique suas credenciais.');
+    if (resposta instanceof Error) //alert('Falha no login. Verifique suas credenciais.');
+    {
+      console.error(resposta);
+
+      if (/ERRO NO FECTH:/.test(resposta.message))
+      {
+        alert("Erro de conexão. Verifique sua rede ou tente mais tarde.");
+      }
+      else
+      {
+        /**@type {[string, {status: number, message: string, timestamp: Date}]}}*/
+        let erro = JSON.parse(resposta.message);
+
+        if (erro[1].status == 500)
+        {
+          alert("O sistema está fora do ar. Tente novamente mais tarde.");
+        }
+        else if (erro[1].message === "Bad credentials")
+        {
+          alert("Nome ou senha incorretos.");
+        }
+      }
+    }
     else
     {
       Ajax.createCookie("token", resposta.token, 1 / 48);
@@ -96,8 +118,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (resposta instanceof Error) 
     {
-      alert('Falha no cadastro. Verifique os dados e tente novamente.');
       console.error(resposta);
+
+      if (/ERRO NO FECTH:/.test(resposta.message))
+      {
+        alert("Erro de conexão. Verifique sua rede ou tente mais tarde.");
+      }
+      else
+      {
+        /**@type {[string, {status: number, message: string, timestamp: Date}]}}*/
+        let erro = JSON.parse(resposta.message);
+
+        if (erro[1].status == 500)
+        {
+          alert("O sistema está fora do ar. Tente novamente mais tarde.");
+        }
+        else if (erro[1].message === "Error: Username is already taken!")
+        {
+          alert("Esse nome já está em uso. Escolha outro nome de usuário.");
+        }
+        else if (erro[1].message === "Error: Email is already in use!")
+        {
+          alert("Esse email já está cadstrado. Faça login caso seja o seu.");
+        }
+      }
     }
     else
     {

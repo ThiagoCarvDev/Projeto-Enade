@@ -88,7 +88,7 @@ class Ajax
 
 
     //Requisição
-    return fetch(this.#URLbase + url, reqInit).then(resposta =>
+    return fetch(this.#URLbase + url, reqInit).then(async resposta =>
     {
       if (resposta.ok)
       {
@@ -130,7 +130,7 @@ class Ajax
             break;  
         }
         
-        throw new Error([mensagem, resposta.status, resposta.json.then(value => value)]);
+        throw new Error(JSON.stringify([mensagem, await resposta.json()])); 
       }    
     }).catch(erro => 
     {
