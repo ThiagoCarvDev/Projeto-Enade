@@ -21,7 +21,12 @@ window.onload = async () =>
     const {id, courseId} = Ajax.parseJWT(token);
     
     let perfil = await Ajax.request({method: "GET", url: "users/profile?userid=" + id, auth: token});
-    if (perfil instanceof Error) alert("Ocorreu um problema. Cheque sua conexão ou tente novamente mais tarde.");
+    if (perfil instanceof Error) 
+    {
+        console.error(perfil);
+        alert("Ocorreu um problema. Cheque sua conexão ou tente novamente mais tarde.");
+        window.history.back();
+    }
     else
     {
         document.querySelector(".inf_perfil h2").textContent = perfil.username;
@@ -30,10 +35,13 @@ window.onload = async () =>
     }
     
     let ranking = await Ajax.request({method: "GET", url: "users/ranking", auth: token});
-    if (ranking instanceof Error) alert("Erro de conexão. Verique sua rede ou tente novamente mais tarde.");
+    if (ranking instanceof Error) 
+    {
+        console.error(ranking);
+        alert("Não foi possível carregar o ranking.");
+    }
     else 
     {
-        const limite = 10; // Número máximo de usuários a serem exibidos no ranking
         document.querySelector(".ranking-table tbody").replaceChildren();
         for (let trow = 0; trow < ranking.length; trow++)
         {
@@ -62,7 +70,11 @@ window.onload = async () =>
             tdown[0].textContent = medal;
             tdown[1].textContent = ranking[trow].username;
             tdown[2].textContent = ranking[trow].score;
+
+            if (ranking[trow].username == perfil.username) [...tdown].map((td => td.style.backgroundColor = "#007bff"));
             document.querySelector(".ranking-table tbody").appendChild(tr);
+
+            if (trow === 9) break; // Número máximo de usuários a serem exibidos no ranking
         }
     }
 }

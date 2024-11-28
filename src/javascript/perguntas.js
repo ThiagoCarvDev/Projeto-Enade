@@ -6,7 +6,7 @@ import QuestQuiz from "./modules/QuestQuiz.js";
 window.onbeforeunload = event => 
 {
   let confirmationMessage = "Tem certeza que deseja sair desta página?";
-  //event.returnValue = confirmationMessage; 
+  event.returnValue = confirmationMessage; 
   return confirmationMessage;
 };
 
@@ -20,15 +20,19 @@ window.onload = async () =>
 {
     let divs = Array.from(document.querySelectorAll(".question-div"));
     let questArray = [];
-    let token = Ajax.readCookie("token"); 
+    const token = Ajax.readCookie("token"); 
     
     
     let resposta = await Ajax.request({method: "GET", url: history.state, auth: token}); 
+    
     const state = /general/g.test(window.history.state) ? "gerais" : "técnicas";
-    //console.error(window.history.state.match(/general/g)[1]); 
+    document.querySelector(".quiz-type").textContent +=  " " + state;
     window.history.replaceState(null, "", window.location.pathname);
+
+
     if (resposta instanceof Error) 
     { 
+      console.error(resposta);
       alert("Ocorreu um erro. Verifique sua conexão ou tente novamente mais tarde.");
       window.location.href = "./telaPrincipal.html";
     }
@@ -70,4 +74,6 @@ window.onload = async () =>
         }
       });
     }
+
+    window.scrollTo(0,0);
 }

@@ -56,14 +56,34 @@ $(document).ready(function() {
     })
 
     
-    document.querySelectorAll(".categoria .entra").forEach(botao => botao.addEventListener("click", async event =>
+    document.querySelectorAll(".categoria button.entra").forEach(botao => botao.addEventListener("click", async event =>
     {
-        let {id, courseId} = Ajax.parseJWT(Ajax.readCookie("token"));
-        let link = event.target.parentElement.parentElement.querySelector(".categoria-title").innerText == 
+        const {id, courseId} = Ajax.parseJWT(Ajax.readCookie("token"));
+        let link = event.currentTarget.parentElement.querySelector(".categoria-title").innerText == 
         "Gerais" ? `quiz/general?userid=${id}` : `quiz/technical?userid=${id}&courseid=${courseId}`;
         history.pushState(link, "", "./perguntas.html");
         window.location.reload();
     }));
+
+    document.getElementById("logout-btn").addEventListener("click", () =>
+    {
+        if (window.confirm("Certeza que deseja sair da sua conta?"))
+        {
+            try 
+            {
+                Ajax.updateCookie("token", null, -1);
+                window.location.href = "../../index.html";
+            } 
+            catch (error) 
+            {
+                window.alert("Erro ao deslogar.");
+                console.error(error);
+            }
+        }
+    });
+
+    document.getElementById("profile-btn").addEventListener("click", 
+    () => window.location.href = "../pages/perfil.html");
 
     if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
 });

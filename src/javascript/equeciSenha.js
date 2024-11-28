@@ -37,7 +37,7 @@ const emailError = document.getElementById('emailError');
                     break;
 
                 default:
-                    alert("Ouve instabilidades no sistema. Tente novamente mais tarde.");
+                    alert("Houve instabilidades no sistema. Tente novamente mais tarde.");
                     break;
             }
         }

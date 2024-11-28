@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: {username: username, password: password}
     });
 
-    if (resposta instanceof Error) //alert('Falha no login. Verifique suas credenciais.');
+    if (resposta instanceof Error) 
     {
       console.error(resposta);
 
@@ -151,7 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
         body: {username: username, password: password}
       });
 
-      if (login instanceof Error) alert('Cadastro feito, porém falha no login.');
+      if (login instanceof Error) 
+      {
+        alert('Cadastro feito, porém falha no login.');
+        console.error(Error);
+      }
       else
       {
         Ajax.createCookie("token", login.token, 1 / 48);

@@ -49,7 +49,7 @@ class Ajax
   */
   static updateCookie(name, value, ttl)
   {
-    if (Ajax.readCookie(name) == null) console.info("O cookie não existe.");
+    if (Ajax.readCookie(name) == null) throw new Error("O cookie não existe.");
     else Ajax.createCookie(name, value, ttl);
   }
 
