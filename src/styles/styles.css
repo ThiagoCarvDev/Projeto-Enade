@@ -83,6 +83,19 @@ section {
     background-image: var(--color-background-0);
 }
 
+/* Estilização do botão de sair */
+.btn-sair {
+    background-color: transparent; /* Torna o botão transparente */
+    color: white; /* Define a cor do texto em preto */
+    cursor: pointer; /* Mostra um cursor de "mão" ao passar sobre o botão */
+    padding: 10px 20px; /* Ajusta o preenchimento interno */
+}
+
+/* Alteração visual ao passar o mouse */
+.btn-sair:hover {
+    color: rgba(244, 231, 231, 0.863); /* Muda o texto para branco ao passar o mouse */
+    font-size: 17px; /* Ajusta o tamanho da fonte */
+}
 
 .section-title {
     color: var(--color-neutral-1);

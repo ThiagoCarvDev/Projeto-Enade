@@ -78,3 +78,15 @@ window.onload = async () =>
         }
     }
 }
+
+document.getElementById("logout-btn").addEventListener("click", () => {
+    if (window.confirm("Certeza que deseja sair da sua conta?")) {
+        try {
+            Ajax.updateCookie("token", null, -1); // Remove o token
+            window.location.href = "../../index.html"; // Redireciona para a página inicial
+        } catch (error) {
+            window.alert("Erro ao deslogar.");
+            console.error(error);
+        }
+    }
+});
