@@ -1,0 +1,109 @@
+/* Esse style é a parte do "Cabeçalho"*/
+
+header {
+    width: 100%;
+    padding: 0 8%;
+    position: sticky;
+    top: 0;
+    background-image: var(--color-background-0);
+    z-index: 3;   
+}
+
+#navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+}
+/*img da logo do enada*/
+#nav_logo{
+    margin-top: 0.5%;
+    width: 7%;
+    align-self: flex-end;
+}
+#navbar button{
+    width: 8%;
+    border: 1px solid;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.50);
+}
+
+#navbar button a{
+    text-decoration: none; 
+    font-size: 18px;
+    color: var(--color-neutral-0);
+    font-family: var(--font-secondary);
+    font-style: normal;
+    font-weight: 400;
+}
+
+#nav_list {
+    display: flex;
+    list-style: none;
+    gap: 70px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: var(--color-neutral-0);
+    font-family: var(--font-secondary);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    
+}
+
+.nav-item.active a {
+    color: var(--color-neutral-0);
+    border-bottom: 3px solid var(--color-primary-3);
+
+    /* Adicionando contorno ao texto */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgba(0, 0, 0, 0.20); /* Cor preta com 20% de opacidade */
+}
+
+#mobile_btn {
+    display: none;
+}
+
+#mobile_menu {
+    display: none;
+}
+
+/*Responsividade da tela*/
+@media screen and (max-width: 1170px) {
+    #nav_list,
+    #navbar .btn-default {
+        display: none;
+    }
+
+    #mobile_btn {
+        display: block;
+        border: none;
+        background-color: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    #mobile_menu.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #mobile_nav_list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 12px 0px;
+    }
+
+    #mobile_nav_list .nav-item {
+        list-style: none;
+        text-align: center;
+    } 
+}

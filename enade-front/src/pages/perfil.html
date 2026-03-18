@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "/src/styles/styles.css" rel = "stylesheet"/>
+    <title>Enade Quiz</title>
+</head>
+<body>
+    <header>
+        <!-- Cabeçalho do site -->
+        <nav id="navbar">
+            <!-- Logo do Enade -->
+            <img src="/src/img/logo-enade.svg" alt="Logo Enade" id="nav_logo">
+            <!-- Links para as seções -->
+            <ul id="nav_list">
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#home">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#quiz">Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#conhecanos">Sobre</a>
+                </li>
+            </ul>
+    
+            <a class="btn-sair" id="logout-btn">Sair</a>
+            
+            <!-- Ícone para menu mobile -->
+            <button id="mobile_btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- Menu para celular -->
+        <div id="mobile_menu">
+            <!-- Links para as seções -->
+            <ul id="mobile_nav_list">
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#home">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#quiz">Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/src/pages/telaPrincipal.html#conhecanos">Sobre</a>
+                </li>
+            </ul>            
+        </div>
+    </header>
+
+    <main id="content">
+        <div class="perfil-container">
+            <div class="profile-section">
+                <div class="inf_perfil">
+                    <h2></h2>
+                    <p class="email"></p>
+                    <p class="course"></p>
+                </div>
+                <div class="estatistica_perfil">
+                    <h3>Estatísticas</h3>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-icon">🔥</span>
+                            <p>28</p>
+                            <span>Dias seguidos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <p>8928</p>
+                            <span>Total de XP</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🏅</span>
+                            <p>Ouro</p>
+                            <span>Divisão</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🥇</span>
+                            <p>4</p>
+                            <span>Pódios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="ranking-section">
+                <h3>Ranking</h3>
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Nome</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+
+   
+    <script type = "module" src = "../javascript/perfil.js" defer></script>
+</body>
+</html>
