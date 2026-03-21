@@ -31,12 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let resposta = await Ajax.request(
+    let resposta = {username: 'uninassau@gmail.com', password:'1234'}
+    /*await Ajax.request(
     {
       method: "POST", 
       url: "auth/login", 
       body: {username: username, password: password}
-    });
+    });*/
 
     if (resposta instanceof Error) 
     {
@@ -61,9 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
+    else if(username !== resposta.username || password !== resposta.password){
+      console.log(username)
+      console.log(resposta.username)
+      alert('Email ou senha incorretos')
+    }
     else
     {
-      Ajax.createCookie("token", resposta.token, 1 / 48);
       window.location.href = "./src/pages/telaPrincipal.html";
     }
   });
@@ -158,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       else
       {
-        Ajax.createCookie("token", login.token, 1 / 48);
         window.location.href = "./src/pages/telaPrincipal.html";
       }
     }

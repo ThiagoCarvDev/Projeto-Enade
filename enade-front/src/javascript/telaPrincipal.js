@@ -85,5 +85,5 @@ $(document).ready(function() {
     document.getElementById("profile-btn").addEventListener("click", 
     () => window.location.href = "../pages/perfil.html");
 
-    if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
+    //if (Ajax.readCookie("token") == null) window.location.href='../../index.html';
 });
