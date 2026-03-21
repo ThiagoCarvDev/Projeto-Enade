@@ -58,7 +58,8 @@ $(document).ready(function() {
     
     document.querySelectorAll(".categoria button.entra").forEach(botao => botao.addEventListener("click", async event =>
     {
-        const {id, courseId} = Ajax.parseJWT(Ajax.readCookie("token"));
+        // const {id, courseId} = Ajax.parseJWT(Ajax.readCookie("token"));
+        const id = 1, courseId = 2; // mock para acessar
         let link = event.currentTarget.parentElement.querySelector(".categoria-title").innerText == 
         "Gerais" ? `quiz/general?userid=${id}` : `quiz/technical?userid=${id}&courseid=${courseId}`;
         history.pushState(link, "", "./perguntas.html");
