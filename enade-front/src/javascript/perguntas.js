@@ -1,7 +1,9 @@
 import Ajax from "./modules/Ajax.js";
 import Question from "./modules/Question.js";
 import QuestQuiz from "./modules/QuestQuiz.js";
+import { jsonteste } from "./modules/teste.js";
 
+const MOCK = true;
 
 window.onbeforeunload = event => 
 {
@@ -12,7 +14,6 @@ window.onbeforeunload = event =>
 
 window.addEventListener('popstate', event => 
 {
-  //console.log('URL:', document.location.href, 'State:', event.state);
   window.location.reload();
 });
 
@@ -22,13 +23,11 @@ window.onload = async () =>
     let questArray = [];
     const token = Ajax.readCookie("token"); 
     
+    let resposta = MOCK ? jsonteste : await Ajax.request({method: "GET", url: history.state, auth: token}); 
     
-    let resposta = await Ajax.request({method: "GET", url: history.state, auth: token}); 
-    
-    const state = /general/g.test(window.history.state) ? "gerais" : "técnicas";
-    document.querySelector(".quiz-type").textContent +=  " " + state;
+    const state = MOCK ? "técnicas" : (/general/g.test(window.history.state) ? "gerais" : "técnicas");
+    document.querySelector(".quiz-type").textContent += " " + state;
     window.history.replaceState(null, "", window.location.pathname);
-
 
     if (resposta instanceof Error) 
     { 
@@ -38,12 +37,10 @@ window.onload = async () =>
     }
     else
     {
-      resposta.forEach((json, index, jsonteste)=>
+      resposta.forEach((json, index) =>
       {
         questArray.push(new QuestQuiz(json, divs[index]));
-        
       });
-
 
       document.querySelector(".btn").addEventListener("click", async () =>
       {
@@ -60,16 +57,47 @@ window.onload = async () =>
 
         if (window.confirm(aviso))
         {
-          let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
-          if (resultados instanceof Error) alert("Falha de conexão.");
-          else
+          if (MOCK)
           {
-            // Salva os resultados no sessionStorage para serem acessados na tela de resultados
-            sessionStorage.setItem("quizResultados", JSON.stringify([resultados, state]));
+            const results = jsonteste.map(q =>
+            {
+              const instancia = Question.instances.find(i => i.instancia.id === q.id)?.instancia;
+              const selected = instancia?.selectedOption || null;
+              return {
+                questionId: q.id,
+                questionText: q.text,
+                optionA: q.optionA,
+                optionB: q.optionB,
+                optionC: q.optionC,
+                optionD: q.optionD,
+                correctAnswer: q.correctAnswer,
+                selectedOption: selected,
+                correct: selected === q.correctAnswer
+              };
+            });
 
-            // Redireciona para a tela de resultados
+            const correctCount = results.filter(r => r.correct).length;
+
+            const resultadoMock = {
+              correctCount: correctCount,
+              incorrectCount: results.length - correctCount,
+              results: results
+            };
+
+            sessionStorage.setItem("quizResultados", JSON.stringify([resultadoMock, state]));
             window.onbeforeunload = null;
             window.location.href = "./resultado.html";
+          }
+          else
+          {
+            let resultados = await Ajax.request({method: "POST", url: `quiz/submit?userid=${Ajax.parseJWT(token).id}`, body: quiz, auth: token});
+            if (resultados instanceof Error) alert("Falha de conexão.");
+            else
+            {
+              sessionStorage.setItem("quizResultados", JSON.stringify([resultados, state]));
+              window.onbeforeunload = null;
+              window.location.href = "./resultado.html";
+            }
           }
         }
       });
