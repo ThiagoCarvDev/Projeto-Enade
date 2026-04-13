@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { GoogleLogo } from "@phosphor-icons/react";
+import { authClient } from "@/lib/auth-client"
 
 
 const loginSchema = z.object({
@@ -34,7 +35,27 @@ export function LoginForm() {
   })
 
   async function onSubmit(formData: LoginFormValues) {
+    await authClient.signIn.email({
+      email: formData.email,
+      password: formData.password,
+      callbackURL: "/dashboard"
+    },
+      {
+        onRequest: (ctx) => {
 
+        },
+        onSuccess: (ctx) => {
+          console.log("Logado", ctx)
+          router.replace("/dashboard")
+        },
+        onError: (ctx) => {
+          console.log("Erro ao logar", ctx)
+          if (ctx.error.code === "INVALID_EMAIL_OR_PASSWORD") {
+            alert("Email ou senha incorretos")
+          }
+        }
+      }
+    )
 
   }
 
