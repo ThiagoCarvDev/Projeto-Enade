@@ -59,6 +59,13 @@ export function LoginForm() {
 
   }
 
+  const handleLoginWithGoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard"
+    })
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -136,7 +143,7 @@ export function LoginForm() {
           type="button"
           variant="outline"
           className="w-full flex items-center justify-center gap-3 bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 transition-all duration-200rounded-xl shadow-sm hover:shadow-md font-medium"
-          onClick={async () => { }}
+          onClick={handleLoginWithGoogle}
         >
           <GoogleLogo className="mr-2 h-4 w-4" />
           Entrar com Google
