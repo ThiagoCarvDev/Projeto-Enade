@@ -16,7 +16,7 @@ import { usePathname } from 'next/navigation';
 
 const links = [
     { name: 'Home', href: '/dashboard', icon: HomeIcon },
-    { name: 'Simulado', href: '/dashboard/simulado', icon: DocumentDuplicateIcon },
+    { name: 'Simulados', href: '/simulados', icon: DocumentDuplicateIcon },
     { name: 'Perfil', href: '/dashboard/perfil', icon: UserGroupIcon },
 ];
 

@@ -5,7 +5,6 @@ import {
     XCircleIcon,
 } from '@heroicons/react/24/outline';
 
-// 📊 Dados mockados do aluno
 const mockCardData = {
     simuladosRealizados: 5,
     simuladosPendentes: 2,
