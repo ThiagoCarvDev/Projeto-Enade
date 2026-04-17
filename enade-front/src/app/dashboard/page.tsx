@@ -19,12 +19,7 @@ export default async function Dashboard() {
 
   return (
     <div className="container mx-auto min-h-screen flex items-center justify-center flex-col">
-      <h1 className={` mb-4 text-xl md:text-2xl`}>
-        Dashboard
-      </h1>
-      <h3>Usuario logado: {session.user.name}</h3>
-      <h3 className='mb-4'>Email: {session.user.email}</h3>
-      <h3 className='mb-4'>Id user: {session.user.id}</h3>
+
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <CardWrapper />
