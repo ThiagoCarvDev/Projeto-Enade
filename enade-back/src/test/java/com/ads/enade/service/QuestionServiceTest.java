@@ -3,7 +3,8 @@ package com.ads.enade.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ads.enade.dto.*;
+import com.ads.enade.dto.quiz.SubmitAnswerResponse;
+import com.ads.enade.dto.quiz.SubmitAnswerRequest;
 import com.ads.enade.entity.*;
 import com.ads.enade.repository.*;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,9 +1,9 @@
 import Ajax from "./modules/Ajax.js";
 import Question from "./modules/Question.js";
 import QuestQuiz from "./modules/QuestQuiz.js";
-import { jsonteste } from "./modules/teste.js";
+import { jsonteste } from "./modules/teste.js"; // ajusta o caminho
 
-const MOCK = true;
+const MOCK = true; // troca pra false quando a API estiver pronta
 
 window.onbeforeunload = event => 
 {
@@ -23,8 +23,11 @@ window.onload = async () =>
     let questArray = [];
     const token = Ajax.readCookie("token"); 
     
-    let resposta = MOCK ? jsonteste : await Ajax.request({method: "GET", url: history.state, auth: token}); 
+    let resposta = MOCK ? jsonteste : await Ajax.request({method: "GET", url: history.state, auth: token});
     
+    console.log("resposta:", resposta);       // ← aqui
+    console.log("jsonteste:", jsonteste);     // ← e aqui
+
     const state = MOCK ? "técnicas" : (/general/g.test(window.history.state) ? "gerais" : "técnicas");
     document.querySelector(".quiz-type").textContent += " " + state;
     window.history.replaceState(null, "", window.location.pathname);
@@ -59,7 +62,8 @@ window.onload = async () =>
         {
           if (MOCK)
           {
-            const results = jsonteste.map(q =>
+            // Monta o resultado localmente sem chamar a API
+            const resultadoMock = jsonteste.map(q =>
             {
               const instancia = Question.instances.find(i => i.instancia.id === q.id)?.instancia;
               const selected = instancia?.selectedOption || null;
@@ -75,14 +79,6 @@ window.onload = async () =>
                 correct: selected === q.correctAnswer
               };
             });
-
-            const correctCount = results.filter(r => r.correct).length;
-
-            const resultadoMock = {
-              correctCount: correctCount,
-              incorrectCount: results.length - correctCount,
-              results: results
-            };
 
             sessionStorage.setItem("quizResultados", JSON.stringify([resultadoMock, state]));
             window.onbeforeunload = null;

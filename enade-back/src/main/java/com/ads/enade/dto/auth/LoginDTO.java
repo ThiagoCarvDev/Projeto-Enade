@@ -1,4 +1,4 @@
-package com.ads.enade.dto;
+package com.ads.enade.dto.auth;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

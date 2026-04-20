@@ -1,7 +1,7 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.UserProfileDTO;
-import com.ads.enade.dto.UserRankingDTO;
+import com.ads.enade.dto.user.UserProfileDTO;
+import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.entity.User;
 import com.ads.enade.exception.UserNotFoundException;
 import com.ads.enade.repository.UserRepository;

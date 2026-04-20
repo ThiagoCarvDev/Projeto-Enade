@@ -1,7 +1,7 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.UserProfileDTO;
-import com.ads.enade.dto.UserRankingDTO;
+import com.ads.enade.dto.user.UserProfileDTO;
+import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

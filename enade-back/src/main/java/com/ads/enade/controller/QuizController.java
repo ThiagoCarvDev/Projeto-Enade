@@ -1,7 +1,7 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.SubmitAnswerRequest;
-import com.ads.enade.dto.SubmitAnswerResponse;
+import com.ads.enade.dto.quiz.SubmitAnswerRequest;
+import com.ads.enade.dto.quiz.SubmitAnswerResponse;
 import com.ads.enade.entity.Question;
 import com.ads.enade.service.QuestionService;
 import com.ads.enade.service.UserService;

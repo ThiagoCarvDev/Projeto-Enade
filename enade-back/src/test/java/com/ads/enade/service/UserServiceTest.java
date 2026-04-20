@@ -3,8 +3,8 @@ package com.ads.enade.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ads.enade.dto.UserProfileDTO;
-import com.ads.enade.dto.UserRankingDTO;
+import com.ads.enade.dto.user.UserProfileDTO;
+import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.entity.User;
 import com.ads.enade.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
