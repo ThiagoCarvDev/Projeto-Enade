@@ -42,10 +42,11 @@ public class WebSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)) // Configura o manipulador de entrada não autorizada
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Configura a política de criação de sessão como sem estado
+                .headers(hearder -> hearder.frameOptions(frame -> frame.sameOrigin())) //Libera o acesso ao H2
                 .authorizeHttpRequests(auth -> // Configura as autorizações de solicitações HTTP
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() //TODO: Rota para o swagger. Ainda sim fica bloqueada. VER ISSO.
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll() // Libera rotas do swagger e h2 (apenas para teste)
                                 .anyRequest().authenticated()
                 );
 

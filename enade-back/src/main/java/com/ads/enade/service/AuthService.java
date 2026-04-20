@@ -19,6 +19,7 @@ import com.ads.enade.security.jwt.JwtUtils;
 import com.ads.enade.utils.EmailService;
 import com.ads.enade.utils.JwtResponse;
 import com.ads.enade.utils.MessageResponse;
+import com.ads.enade.utils.impl.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +45,7 @@ public class AuthService {
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Autowired
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @Autowired
     private RoleRepository roleRepository;
