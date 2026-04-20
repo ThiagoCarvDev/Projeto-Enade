@@ -1,10 +1,12 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.SubmitAnswerRequest;
-import com.ads.enade.dto.SubmitAnswerResponse;
+import com.ads.enade.dto.quiz.SubmitAnswerRequest;
+import com.ads.enade.dto.quiz.SubmitAnswerResponse;
 import com.ads.enade.entity.Question;
+import com.ads.enade.security.WebSecurityConfig;
 import com.ads.enade.service.QuestionService;
 import com.ads.enade.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@SecurityRequirement(name = WebSecurityConfig.SECURITY)
 @RequestMapping("/api/quiz")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 public class QuizController {

@@ -1,7 +1,7 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.SubmitAnswerRequest;
-import com.ads.enade.dto.SubmitAnswerResponse;
+import com.ads.enade.dto.quiz.SubmitAnswerRequest;
+import com.ads.enade.dto.quiz.SubmitAnswerResponse;
 import com.ads.enade.entity.Question;
 import com.ads.enade.exception.CourseNotFoundException;
 import com.ads.enade.exception.QuestionNotFoundException;

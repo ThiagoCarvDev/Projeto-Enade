@@ -1,12 +1,14 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.EmailDTO;
-import com.ads.enade.dto.LoginDTO;
-import com.ads.enade.dto.RegisterDTO;
-import com.ads.enade.dto.ResetPasswordDTO;
+import com.ads.enade.dto.auth.EmailDTO;
+import com.ads.enade.dto.auth.LoginDTO;
+import com.ads.enade.dto.auth.RegisterDTO;
+import com.ads.enade.dto.auth.ResetPasswordDTO;
+import com.ads.enade.security.WebSecurityConfig;
 import com.ads.enade.service.AuthService;
 import com.ads.enade.utils.JwtResponse;
 import com.ads.enade.utils.MessageResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@SecurityRequirement(name = WebSecurityConfig.SECURITY)
 @RequestMapping("/api/auth")
 public class AuthController {
 

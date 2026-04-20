@@ -2,6 +2,8 @@ package com.ads.enade.security;
 
 import com.ads.enade.security.jwt.AuthEntryPointJwt;
 import com.ads.enade.security.jwt.AuthTokenFilter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +30,10 @@ import java.util.List;
  */
 @Configuration
 @EnableMethodSecurity // Anotação para habilitar a segurança em métodos
+@SecurityScheme(name = WebSecurityConfig.SECURITY, type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 public class WebSecurityConfig {
+
+    public static final String SECURITY = "bearerSecurity";
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
@@ -42,10 +47,11 @@ public class WebSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)) // Configura o manipulador de entrada não autorizada
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Configura a política de criação de sessão como sem estado
+                .headers(hearder -> hearder.frameOptions(frame -> frame.sameOrigin())) //Libera o acesso ao H2
                 .authorizeHttpRequests(auth -> // Configura as autorizações de solicitações HTTP
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() //TODO: Rota para o swagger. Ainda sim fica bloqueada. VER ISSO.
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll() // Libera rotas do swagger e h2 (apenas para teste)
                                 .anyRequest().authenticated()
                 );
 

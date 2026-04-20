@@ -3,7 +3,10 @@ package com.ads.enade.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ads.enade.dto.*;
+import com.ads.enade.dto.auth.EmailDTO;
+import com.ads.enade.dto.auth.LoginDTO;
+import com.ads.enade.dto.auth.RegisterDTO;
+import com.ads.enade.dto.auth.ResetPasswordDTO;
 import com.ads.enade.entity.*;
 import com.ads.enade.enums.ERole;
 import com.ads.enade.repository.*;

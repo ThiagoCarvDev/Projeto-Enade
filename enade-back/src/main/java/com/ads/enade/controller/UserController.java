@@ -1,8 +1,10 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.UserProfileDTO;
-import com.ads.enade.dto.UserRankingDTO;
+import com.ads.enade.dto.user.UserProfileDTO;
+import com.ads.enade.dto.user.UserRankingDTO;
+import com.ads.enade.security.WebSecurityConfig;
 import com.ads.enade.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@SecurityRequirement(name = WebSecurityConfig.SECURITY)
 @RequestMapping("/api/users")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 public class UserController {
