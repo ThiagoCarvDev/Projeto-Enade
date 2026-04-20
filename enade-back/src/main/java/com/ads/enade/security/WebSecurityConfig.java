@@ -2,6 +2,8 @@ package com.ads.enade.security;
 
 import com.ads.enade.security.jwt.AuthEntryPointJwt;
 import com.ads.enade.security.jwt.AuthTokenFilter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +30,10 @@ import java.util.List;
  */
 @Configuration
 @EnableMethodSecurity // Anotação para habilitar a segurança em métodos
+@SecurityScheme(name = WebSecurityConfig.SECURITY, type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 public class WebSecurityConfig {
+
+    public static final String SECURITY = "bearerSecurity";
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
