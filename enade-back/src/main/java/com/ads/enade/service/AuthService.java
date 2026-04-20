@@ -1,9 +1,9 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.EmailDTO;
-import com.ads.enade.dto.LoginDTO;
-import com.ads.enade.dto.RegisterDTO;
-import com.ads.enade.dto.ResetPasswordDTO;
+import com.ads.enade.dto.auth.EmailDTO;
+import com.ads.enade.dto.auth.LoginDTO;
+import com.ads.enade.dto.auth.RegisterDTO;
+import com.ads.enade.dto.auth.ResetPasswordDTO;
 import com.ads.enade.entity.Course;
 import com.ads.enade.entity.PasswordResetToken;
 import com.ads.enade.entity.Role;
@@ -16,7 +16,6 @@ import com.ads.enade.repository.RoleRepository;
 import com.ads.enade.repository.UserRepository;
 import com.ads.enade.security.UserDetailsImpl;
 import com.ads.enade.security.jwt.JwtUtils;
-import com.ads.enade.utils.EmailService;
 import com.ads.enade.utils.JwtResponse;
 import com.ads.enade.utils.MessageResponse;
 import com.ads.enade.utils.impl.EmailServiceImpl;

@@ -1,4 +1,4 @@
-package com.ads.enade.dto;
+package com.ads.enade.dto.auth;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmailDTO {
+public class LoginDTO {
 
-    private String email;
+    private String username;
+    private String password;
 
 }

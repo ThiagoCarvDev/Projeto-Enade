@@ -1,9 +1,9 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.EmailDTO;
-import com.ads.enade.dto.LoginDTO;
-import com.ads.enade.dto.RegisterDTO;
-import com.ads.enade.dto.ResetPasswordDTO;
+import com.ads.enade.dto.auth.EmailDTO;
+import com.ads.enade.dto.auth.LoginDTO;
+import com.ads.enade.dto.auth.RegisterDTO;
+import com.ads.enade.dto.auth.ResetPasswordDTO;
 import com.ads.enade.security.WebSecurityConfig;
 import com.ads.enade.service.AuthService;
 import com.ads.enade.utils.JwtResponse;

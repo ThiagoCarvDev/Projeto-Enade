@@ -1,4 +1,4 @@
-package com.ads.enade.dto;
+package com.ads.enade.dto.quiz;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

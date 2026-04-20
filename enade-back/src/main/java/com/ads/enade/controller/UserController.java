@@ -1,7 +1,7 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.UserProfileDTO;
-import com.ads.enade.dto.UserRankingDTO;
+import com.ads.enade.dto.user.UserProfileDTO;
+import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.security.WebSecurityConfig;
 import com.ads.enade.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
