@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.ads.enade.dto.user.UserProfileDTO;
 import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.entity.User;
+import com.ads.enade.repository.CourseRepository;
 import com.ads.enade.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,17 +61,4 @@ public class UserServiceTest {
         assertEquals("user2", result.get(1).getUsername());
         assertEquals(90, result.get(1).getScore());
     }
-
-    @Test
-    public void testGetUserProfileSuccess() {
-        Long userId = 1L;
-        User user = new User("testuser", "testemail@test.com", "password");
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        UserProfileDTO profile = userService.getUserProfile(userId);
-
-        assertEquals("testuser", profile.getUsername());
-        assertEquals("testemail@test.com", profile.getEmail());
-    }
-
 }

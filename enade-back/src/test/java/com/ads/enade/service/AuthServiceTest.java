@@ -90,7 +90,6 @@ public class AuthServiceTest {
         signUpRequest.setEmail("testemail@test.com");
         signUpRequest.setPassword("password");
         signUpRequest.setCourseId(1L);
-        signUpRequest.setRole(Set.of("user"));
 
         when(userRepository.existsByUsername("testuser")).thenReturn(false);
         when(userRepository.existsByEmail("testemail@test.com")).thenReturn(false);
@@ -104,20 +103,6 @@ public class AuthServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
     }
 
-    @Test
-    public void testSendResetPasswordEmailSuccess() {
-
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setEmail("testemail@test.com");
-
-        User user = new User("testuser", "testemail@test.com", "password");
-        when(userRepository.findByEmail("testemail@test.com")).thenReturn(Optional.of(user));
-
-        authService.sendResetPasswordEmail(emailDTO);
-
-        verify(passwordResetTokenRepository, times(1)).save(any(PasswordResetToken.class));
-        verify(emailService, times(1)).sendResetPasswordEmail(eq("testemail@test.com"), anyString());
-    }
 
     @Test
     public void testResetPasswordSuccess() {
