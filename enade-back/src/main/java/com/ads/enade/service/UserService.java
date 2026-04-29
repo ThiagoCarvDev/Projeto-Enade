@@ -1,5 +1,6 @@
 package com.ads.enade.service;
 
+import com.ads.enade.dto.course.CourseDtoResponse;
 import com.ads.enade.dto.user.UserProfileDTO;
 import com.ads.enade.dto.user.UserRankingDTO;
 import com.ads.enade.entity.User;
@@ -8,6 +9,7 @@ import com.ads.enade.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +19,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthService authService;
 
     // Método para atualizar o score do usuário baseado nas respostas corretas
     public void updateUserScoreAndAttempts(Long userId, int correctAnswers) {
@@ -51,11 +56,22 @@ public class UserService {
     }
 
     // Método para buscar perfil do usuário pelo ID
+    @Transactional
     public UserProfileDTO getUserProfile(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        return new UserProfileDTO(user.getUsername(), user.getEmail());
+        CourseDtoResponse courseDtoResponse = new CourseDtoResponse(user.getCourse().getId(), user.getCourse().getName());
+
+        return new UserProfileDTO(user.getUsername(), user.getEmail(), courseDtoResponse);
     }
 
+    public UserProfileDTO me(){
+
+        User user = authService.me();
+
+        CourseDtoResponse courseDtoResponse = new CourseDtoResponse(user.getCourse().getId(), user.getCourse().getName());
+
+        return new UserProfileDTO(user.getUsername(),user.getEmail(), courseDtoResponse);
+    }
 }
