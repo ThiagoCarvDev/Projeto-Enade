@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.ads.enade.dto.quiz.SubmitAnswerRequest;
 import com.ads.enade.dto.quiz.SubmitAnswerResponse;
 import com.ads.enade.entity.*;
+import com.ads.enade.enums.TypeQuestion;
 import com.ads.enade.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class QuestionServiceTest {
         Course course = new Course();
         course.setId(1L);
 
-        List<Question> questions = List.of(new Question(1L, "Question 1", "A", "B", "C", "D", "A", course));
+        List<Question> questions = List.of(new Question(1L, "Question 1", "A", "B", "C", "D", "A","E" ,course,  TypeQuestion.SPECIFIC));
 
         // Mockando o repositório de usuários e cursos
         when(userRepository.existsById(user.getId())).thenReturn(true); // Mockando existsById
@@ -63,11 +64,11 @@ public class QuestionServiceTest {
         when(userRepository.existsById(user.getId())).thenReturn(true); // Mockando existsById
 
         List<Question> generalQuestions = Arrays.asList(
-                new Question(1L, "Question 1", "A", "B", "C", "D", "A", null),
-                new Question(2L, "Question 2", "A", "B", "C", "D", "B", null),
-                new Question(3L, "Question 3", "A", "B", "C", "D", "C", null),
-                new Question(4L, "Question 4", "A", "B", "C", "D", "D", null),
-                new Question(5L, "Question 5", "A", "B", "C", "D", "A", null)
+                new Question(1L, "Question 1", "A", "B", "C", "D", "A","E", null, TypeQuestion.GENERAL),
+                new Question(1L, "Question 1", "A", "B", "C", "D", "A","E", null, TypeQuestion.GENERAL),
+                new Question(1L, "Question 1", "A", "B", "C", "D", "A","E", null, TypeQuestion.GENERAL),
+                new Question(1L, "Question 1", "A", "B", "C", "D", "A","E", null, TypeQuestion.GENERAL),
+                new Question(1L, "Question 1", "A", "B", "C", "D", "A","E", null, TypeQuestion.GENERAL)
         );
 
         // Mockando o repositório de perguntas
@@ -82,7 +83,7 @@ public class QuestionServiceTest {
     @Test
     public void testCalculateResultsSuccess() {
         List<SubmitAnswerRequest> answers = List.of(new SubmitAnswerRequest(1L, "A"));
-        Question question = new Question(1L, "Question 1", "A", "B", "C", "D", "A", null);
+        Question question = new Question(1L, "Question 1", "A", "B", "C", "D", "A", "A",null, TypeQuestion.SPECIFIC);
         when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
 
         List<SubmitAnswerResponse> result = questionService.calculateResults(answers);

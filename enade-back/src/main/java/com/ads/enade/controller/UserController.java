@@ -34,4 +34,11 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileDTO> me(){
+
+        UserProfileDTO user = userService.me();
+
+        return ResponseEntity.ok(user);
+    }
 }

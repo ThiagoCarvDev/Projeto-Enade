@@ -1,5 +1,6 @@
 package com.ads.enade.entity;
 
+import com.ads.enade.enums.TypeQuestion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -41,6 +42,10 @@ public class Question {
     private String optionD;
 
     @NotBlank
+    @Column(name = "option_E")
+    private String optionE;
+
+    @NotBlank
     @Size(max = 1)
     @Column(name = "correct_answer")
     private String correctAnswer;
@@ -50,4 +55,7 @@ public class Question {
     @JsonIgnore
     private Course course;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_question")
+    private TypeQuestion typeQuestion;
 }
