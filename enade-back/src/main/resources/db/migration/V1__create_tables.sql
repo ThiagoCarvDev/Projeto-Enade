@@ -54,15 +54,23 @@ CREATE TABLE user_roles
 );
 
 -- Tabela de Questões (questions)
-CREATE TABLE questions
+CREATE TABLE questao
 (
-    id             BIGINT AUTO_INCREMENT PRIMARY KEY,
-    text           TEXT         NOT NULL,
-    option_a       VARCHAR(255) NOT NULL,
-    option_b       VARCHAR(255) NOT NULL,
-    option_c       VARCHAR(255) NOT NULL,
-    option_d       VARCHAR(255) NOT NULL,
-    correct_answer CHAR(1)      NOT NULL,
-    course_id      BIGINT,
-    CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE SET NULL
+    id_questao INT PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+    enunciado VARCHAR(1000) NOT NULL,
+    tipo_questao VARCHAR(100) NOT NULL,
+    area_questao VARCHAR(100) NOT NULL,
+    possui_imagem BOOLEAN NOT NULL,
+    img_url VARCHAR(255)
+);
+
+-- tabela de Alternativas (alternativa)
+CREATE TABLE alternativa
+(
+    id_alternativa INT PRIMARY KEY,
+     texto VARCHAR(500) NOT NULL,
+     explicacao VARCHAR(1000),
+     is_correta BOOLEAN,
+     id_questao INT NOT NULL
 );
