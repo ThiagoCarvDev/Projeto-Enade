@@ -51,7 +51,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> // Configura as autorizações de solicitações HTTP
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll() // Libera rotas do swagger e h2 (apenas para teste)
+                                .requestMatchers("/swagger-ui.html","/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll() // Libera rotas do swagger e h2 (apenas para teste)
                                 .anyRequest().authenticated()
                 );
 
@@ -65,7 +65,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://98.85.62.40"));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
