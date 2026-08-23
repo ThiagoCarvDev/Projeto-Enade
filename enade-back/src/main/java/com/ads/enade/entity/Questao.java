@@ -3,10 +3,9 @@ package com.ads.enade.entity;
 import com.ads.enade.enums.TipoQuestao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,12 +13,14 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "questions")
+@Table(name = "questao")
 public class Questao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_questao")
     private Long id;
 
     @NotBlank
@@ -30,16 +31,16 @@ public class Questao {
     @Column(name = "enunciado", length = 1000)
     private String enunciado;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_questao_enum")
+    @Column(name = "tipo_questao")
     private TipoQuestao tipoQuestao;
 
     @NotBlank
     @Column(name = "area_questao", length = 100)
     private String areaQuestao;
 
-    @NotBlank
+    @NotNull
     @Column(name = "possui_imagem")
     private Boolean possuiImagem;
 
@@ -51,7 +52,7 @@ public class Questao {
     @Column(name = "explicacao")
     private String explicacao;
 
-    @NotBlank
+    @NotEmpty
     @OneToMany(mappedBy = "questao", cascade = CascadeType.ALL)
     private List<Alternativa> alternativas;
 

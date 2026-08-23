@@ -2,10 +2,8 @@ package com.ads.enade.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,24 +11,30 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "alternativa")
 public class Alternativa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_alternativa")
     private Long id;
 
     @NotBlank
     @Column(name = "texto", length = 500)
     private String texto;
 
-    @NotBlank
+    @NotNull
     @Column(name = "is_correta")
     private Boolean isCorreta;
 
+    @NotBlank
+    @Column(name = "opcao_alternativa")
+    private String opcaoAlternativa;
+
     @ManyToOne
-    @JoinColumn(name = "questao_id")
+    @JoinColumn(name = "id_questao")
     private Questao questao;
 
 }
