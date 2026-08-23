@@ -32,7 +32,7 @@ public class Simulado {
     private LocalDate ano;
 
     @ManyToOne
-    @JoinColumn(name = "curso_id")
+    @JoinColumn(name = "id_curso")
     private Curso IdCurso;
 
     @NotBlank

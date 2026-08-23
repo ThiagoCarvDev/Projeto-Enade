@@ -22,11 +22,11 @@ public class UsuarioQuestao {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_simulado_id")
+    @JoinColumn(name = "id_usuario_simulado")
     private UsuarioSimulado IdUsuarioSimulado;
 
     @ManyToOne
-    @JoinColumn(name = "questao_id")
+    @JoinColumn(name = "id_questao")
     private Questao IdQuestao;
 
     @NotBlank
@@ -38,7 +38,7 @@ public class UsuarioQuestao {
     private LocalDate dataResposta;
 
     @ManyToOne
-    @JoinColumn(name = "alternativa_id")
+    @JoinColumn(name = "id_alternativa")
     private Alternativa IdAlternativa;
 
 }
