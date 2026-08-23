@@ -15,8 +15,8 @@ CREATE TABLE roles
     CONSTRAINT UC_roles_name UNIQUE (name)
 );
 
--- Tabela de Usuários (users)
-CREATE TABLE users
+-- Tabela de Usuários (usuarios)
+CREATE TABLE usuarios
 (
     id            BIGINT       NOT NULL AUTO_INCREMENT,
     username      VARCHAR(20)  NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE password_reset_token
     expiry_date DATETIME(6),
     PRIMARY KEY (id),
     CONSTRAINT UC_password_reset_token_user UNIQUE (user_id),
-    CONSTRAINT FK_password_reset_token_user FOREIGN KEY (user_id) REFERENCES users (id)
+    CONSTRAINT FK_password_reset_token_user FOREIGN KEY (user_id) REFERENCES usuarios (id)
 );
 
 -- Tabela de Associação Usuários e Papéis (user_roles)
@@ -49,7 +49,7 @@ CREATE TABLE user_roles
     user_id BIGINT NOT NULL,
     role_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, role_id),
-    CONSTRAINT FK_user_roles_user FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT FK_user_roles_user FOREIGN KEY (user_id) REFERENCES usuarios (id),
     CONSTRAINT FK_user_roles_role FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 

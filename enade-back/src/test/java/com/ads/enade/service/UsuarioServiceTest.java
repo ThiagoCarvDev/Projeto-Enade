@@ -3,10 +3,8 @@ package com.ads.enade.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ads.enade.dto.user.UserProfileDTO;
 import com.ads.enade.dto.user.UserRankingDTO;
-import com.ads.enade.entity.User;
-import com.ads.enade.repository.CourseRepository;
+import com.ads.enade.entity.Usuario;
 import com.ads.enade.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Optional;
 
-public class UserServiceTest {
+public class UsuarioServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -33,23 +31,23 @@ public class UserServiceTest {
     @Test
     public void testUpdateUserScoreSuccess() {
         Long userId = 1L;
-        User user = new User("testuser", "testemail@test.com", "password");
-        user.setScore(50);
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        Usuario usuario = new Usuario("testuser", "testemail@test.com", "password");
+        usuario.setScore(50);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(usuario));
 
         userService.updateUserScoreAndAttempts(userId, 5);
 
-        assertEquals(100, user.getScore());
-        verify(userRepository, times(1)).save(user);
+        assertEquals(100, usuario.getScore());
+        verify(userRepository, times(1)).save(usuario);
     }
 
     @Test
     public void testGetAllUsersByScoreSuccess() {
-        List<User> users = List.of(new User("user1", "email1", "100"),
-                                    new User("user2", "email2", "90"));
-        users.get(0).setScore(100);
-        users.get(1).setScore(90);
-        when(userRepository.findAllByOrderByScoreDesc()).thenReturn(users);
+        List<Usuario> usuarios = List.of(new Usuario("user1", "email1", "100"),
+                                    new Usuario("user2", "email2", "90"));
+        usuarios.get(0).setScore(100);
+        usuarios.get(1).setScore(90);
+        when(userRepository.findAllByOrderByScoreDesc()).thenReturn(usuarios);
 
         List<UserRankingDTO> result = userService.getAllUsersByScore();
 

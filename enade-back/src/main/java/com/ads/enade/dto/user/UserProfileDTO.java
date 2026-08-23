@@ -1,12 +1,9 @@
 package com.ads.enade.dto.user;
 
 import com.ads.enade.dto.course.CourseDtoResponse;
-import com.ads.enade.entity.Course;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.io.Serializable;
 
 @Getter
 @Setter

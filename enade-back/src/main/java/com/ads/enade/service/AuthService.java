@@ -4,10 +4,7 @@ import com.ads.enade.dto.auth.EmailDTO;
 import com.ads.enade.dto.auth.LoginDTO;
 import com.ads.enade.dto.auth.RegisterDTO;
 import com.ads.enade.dto.auth.ResetPasswordDTO;
-import com.ads.enade.entity.Course;
-import com.ads.enade.entity.PasswordResetToken;
-import com.ads.enade.entity.Role;
-import com.ads.enade.entity.User;
+import com.ads.enade.entity.*;
 import com.ads.enade.enums.ERole;
 import com.ads.enade.exception.*;
 import com.ads.enade.repository.CourseRepository;
@@ -92,19 +89,19 @@ public class AuthService {
             throw new EmailAlreadyInUseException("Error: Email is already in use!");
         }
 
-        Course course = courseRepository.findById(signUpRequest.getCourseId())
+        Curso course = courseRepository.findById(signUpRequest.getCourseId())
                 .orElseThrow(() -> new CourseNotFoundException("Error: Course is not found."));
 
-        User user = new User(signUpRequest.getUsername(),
+        Usuario usuario = new Usuario(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
 
         Role roleUser = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RoleNotFoundException("Error: Role is not found"));
 
-        user.setRoles(Set.of(roleUser));
-        user.setCourse(course);
-        userRepository.save(user);
+        usuario.setRoles(Set.of(roleUser));
+        usuario.setCourse(course);
+        userRepository.save(usuario);
 
         return new MessageResponse("User registered successfully!");
     }
@@ -113,15 +110,15 @@ public class AuthService {
 
         //TODO: O EMAIL TEM QUE SER VERIFICADO NA AMAZON, SE FOR PARA PRODUÇÃO, NÃO PRECISA VERIFICAR.
 
-        User user = userRepository.findByEmail(emailDTO.getEmail())
+        Usuario usuario = userRepository.findByEmail(emailDTO.getEmail())
                 .orElseThrow(() -> new EmailNotFoundException("Email not found."));
 
         String token = UUID.randomUUID().toString();
-        PasswordResetToken resetToken = new PasswordResetToken(token, user);
+        PasswordResetToken resetToken = new PasswordResetToken(token, usuario);
         passwordResetTokenRepository.save(resetToken);
 
         String resetLink = "98.85.62.40/src/pages/novaSenha.html?token=" + token; //TODO: LEMBRAR DE COLOCAR O SITE
-        emailService.sendResetPasswordEmail(user.getEmail(), resetLink);
+        emailService.sendResetPasswordEmail(usuario.getEmail(), resetLink);
     }
 
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
@@ -132,21 +129,21 @@ public class AuthService {
             throw new InvalidTokenException("Expired token.");
         }
 
-        User user = tokenOptional.getUser();
-        user.setPassword(passwordEncoder.encode(resetPasswordDTO.getNewPassword()));
-        userRepository.save(user);
+        Usuario usuario = tokenOptional.getUsuario();
+        usuario.setPassword(passwordEncoder.encode(resetPasswordDTO.getNewPassword()));
+        userRepository.save(usuario);
 
         passwordResetTokenRepository.delete(tokenOptional);
     }
 
     @Transactional
-    public User me(){
+    public Usuario me(){
 
         UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        User userBuscado = userRepository.findByEmail(user.getEmail())
+        Usuario usuarioBuscado = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new EmailNotFoundException("Email invállido"));
 
-        return  userBuscado;
+        return usuarioBuscado;
     }
 }

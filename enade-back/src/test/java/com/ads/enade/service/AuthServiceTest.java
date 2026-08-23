@@ -3,7 +3,6 @@ package com.ads.enade.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ads.enade.dto.auth.EmailDTO;
 import com.ads.enade.dto.auth.LoginDTO;
 import com.ads.enade.dto.auth.RegisterDTO;
 import com.ads.enade.dto.auth.ResetPasswordDTO;
@@ -94,13 +93,13 @@ public class AuthServiceTest {
         when(userRepository.existsByUsername("testuser")).thenReturn(false);
         when(userRepository.existsByEmail("testemail@test.com")).thenReturn(false);
         when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(Optional.of(new Role(ERole.ROLE_USER)));
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(new Course(1L, "Test Course")));
+        when(courseRepository.findById(1L)).thenReturn(Optional.of(new Curso(1L, "Test Course")));
         when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
 
         MessageResponse response = authService.registerUser(signUpRequest);
 
         assertEquals("User registered successfully!", response.getMessage());
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, times(1)).save(any(Usuario.class));
     }
 
 
@@ -111,12 +110,12 @@ public class AuthServiceTest {
         resetPasswordDTO.setToken("token");
         resetPasswordDTO.setNewPassword("newPassword");
 
-        PasswordResetToken token = new PasswordResetToken("token", new User("testuser", "testemail@test.com", "password"));
+        PasswordResetToken token = new PasswordResetToken("token", new Usuario("testuser", "testemail@test.com", "password"));
         when(passwordResetTokenRepository.findByToken("token")).thenReturn(Optional.of(token));
 
         authService.resetPassword(resetPasswordDTO);
 
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, times(1)).save(any(Usuario.class));
         verify(passwordResetTokenRepository, times(1)).delete(token);
     }
 
