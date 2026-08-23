@@ -1,9 +1,7 @@
 -- Tabela de Cursos (courses)
-CREATE TABLE curso
-(
-    id   BIGINT GENERATED ALWAYS AS IDENTITY,
-    nome VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+CREATE TABLE curso (
+   id_curso INT PRIMARY KEY,
+   nome     VARCHAR(100) NOT NULL
 );
 
 -- Tabela de Papeis (roles)
@@ -18,20 +16,13 @@ CREATE TABLE roles
     CONSTRAINT uc_roles_name UNIQUE (name)
 );
 
--- Tabela de Usuários (usuarios)
-CREATE TABLE usuarios
-(
-    id            BIGINT GENERATED ALWAYS AS IDENTITY,
-    username      VARCHAR(20)  NOT NULL,
-    email         VARCHAR(50)  NOT NULL,
-    password      VARCHAR(120) NOT NULL,
-    course_id     BIGINT,
-    score         INT DEFAULT 0,
-    quiz_attempts INT DEFAULT 0,
-    PRIMARY KEY (id),
-    CONSTRAINT uc_users_username UNIQUE (username),
-    CONSTRAINT uc_users_email UNIQUE (email),
-    CONSTRAINT fk_users_course FOREIGN KEY (course_id) REFERENCES curso (id)
+-- Tabela de Usuário (usuario)
+CREATE TABLE usuario (
+     id_usuario INT PRIMARY KEY,
+     nome       VARCHAR(150) NOT NULL,
+     email      VARCHAR(150) NOT NULL,
+     senha      VARCHAR(255) NOT NULL,
+     id_curso   INT NOT NULL
 );
 
 -- Tabela de Tokens de Redefinição de Senha (password_reset_token)
@@ -78,4 +69,41 @@ CREATE TABLE alternativa
     opcao_alternativa VARCHAR(10),
     id_questao        INT NOT NULL,
     CONSTRAINT fk_alternativa_questao FOREIGN KEY (id_questao) REFERENCES questao (id_questao)
+);
+
+
+-- Tabela de Simulados (simulado)
+CREATE TABLE simulado (
+     id_simulado   INT PRIMARY KEY,
+     titulo        VARCHAR(150) NOT NULL,
+     ano           DATE NOT NULL,
+     id_curso      INT NOT NULL,
+     tipo_simulado varchar(100) NOT NULL
+);
+
+-- Tabela de questões do simulado (SimuladoQuestao)
+CREATE TABLE simulado_questao (
+     id_simulado INT NOT NULL,
+     id_questao INT NOT NULL,
+     PRIMARY KEY (id_simulado, id_questao)
+);
+
+-- Tabela de simuladod o usuario (UsuarioSimulado)
+CREATE TABLE usuario_simulado (
+    id_usuario_simulado INT PRIMARY KEY,
+    id_usuario          INT NOT NULL,
+    id_simulado         INT NOT NULL,
+    nota                INT,
+    quantidade_acertos  INT,
+    data_conclusao      TIMESTAMP
+);
+
+-- Tabela questoes do usuario (UsuarioQuestao)
+CREATE TABLE usuario_questao (
+     id_usuario_questao  INT PRIMARY KEY,
+     id_usuario_simulado INT NOT NULL,
+     id_questao          INT NOT NULL,
+     is_acerto           BOOLEAN,
+     data_resposta       TIMESTAMP,
+     id_alternativa      INT NOT NULL
 );
