@@ -18,6 +18,4 @@ public interface UserRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByEmail(String email);
 
-    List<Usuario> findAllByOrderByScoreDesc();
-
 }
