@@ -1,7 +1,7 @@
 package com.ads.enade.service;
 
+import com.ads.enade.dto.alternativa.AlternativaDTORequest;
 import com.ads.enade.dto.questao.QuestaoDTORequest;
-import com.ads.enade.dto.questao.QuestaoDTOResponse;
 import com.ads.enade.entity.Alternativa;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.enums.TipoQuestao;
@@ -22,9 +22,7 @@ public class QuestaoService {
 
     public void registerQuestion(QuestaoDTORequest request){
 
-        Assert.notNull(request, "Questão para salvamento não pode ser nula");
-
-        if (request.alternativas().isEmpty()) throw new IllegalArgumentException("Alternativas da questão não pode vir vazia");
+        validarEstruturaDaQuestao(request);
 
         log.info("Iniciando processo dee registro de uma nova questão: [{}]", request.titulo());
 
@@ -53,5 +51,31 @@ public class QuestaoService {
         questaoRepository.save(novaQuestao);
 
         log.info("Questão salva com sucesso...");
+    }
+
+    private void validarEstruturaDaQuestao(QuestaoDTORequest request){
+
+        Assert.notNull(request, "Questão para salvamento não pode ser nula");
+
+        if (request.alternativas().size() != 5) {
+            throw new IllegalArgumentException("ALternativas da questão não estão no quantitativo correto = [" + request.alternativas().size() + "]");
+        }
+
+        if (request.possuiImagem() == true && (request.imgURL() == null || request.imgURL().isBlank())){
+            throw new IllegalArgumentException("Houve uma inconsistencia na estrutura da questão relacionado a imagem");
+        }
+
+        List<AlternativaDTORequest> alternativas = request.alternativas();
+
+        for (int i = 0; i < alternativas.size(); i++){
+
+            if (i == 4){
+                break;
+            }
+            AlternativaDTORequest alternativa = request.alternativas().get(i);
+            if (alternativa.opcaoAlternativa().equalsIgnoreCase(alternativas.get(i + 1).opcaoAlternativa())){
+                throw new IllegalArgumentException("As alternativas da questão não podem ser repetir");
+            }
+        }
     }
 }
