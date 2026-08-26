@@ -1,19 +1,17 @@
 -- Tabela de Cursos (courses)
 CREATE TABLE curso
 (
-    id   BIGINT GENERATED ALWAYS AS IDENTITY,
+    id   BIGINT AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
 -- Tabela de Papeis (roles)
--- Postgres não tem ENUM inline em coluna; criamos um tipo ENUM separado
-CREATE TYPE role_name AS ENUM ('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER');
-
+-- MySQL não tem CREATE TYPE; o ENUM é declarado direto na coluna
 CREATE TABLE roles
 (
-    id   BIGINT GENERATED ALWAYS AS IDENTITY,
-    name role_name NOT NULL,
+    id   BIGINT AUTO_INCREMENT,
+    name ENUM('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER') NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT uc_roles_name UNIQUE (name)
 );
@@ -21,7 +19,7 @@ CREATE TABLE roles
 -- Tabela de Usuários (usuarios)
 CREATE TABLE usuarios
 (
-    id            BIGINT GENERATED ALWAYS AS IDENTITY,
+    id            BIGINT AUTO_INCREMENT,
     username      VARCHAR(20)  NOT NULL,
     email         VARCHAR(50)  NOT NULL,
     password      VARCHAR(120) NOT NULL,
@@ -37,10 +35,10 @@ CREATE TABLE usuarios
 -- Tabela de Tokens de Redefinição de Senha (password_reset_token)
 CREATE TABLE password_reset_token
 (
-    id          BIGINT GENERATED ALWAYS AS IDENTITY,
+    id          BIGINT AUTO_INCREMENT,
     token       VARCHAR(255) NOT NULL,
     user_id     BIGINT       NOT NULL,
-    expiry_date TIMESTAMP(6),
+    expiry_date DATETIME(6),
     PRIMARY KEY (id),
     CONSTRAINT uc_password_reset_token_user UNIQUE (user_id),
     CONSTRAINT fk_password_reset_token_user FOREIGN KEY (user_id) REFERENCES usuarios (id)
@@ -59,7 +57,7 @@ CREATE TABLE user_roles
 -- Tabela de Questões (questao)
 CREATE TABLE questao
 (
-    id_questao    INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_questao    INT AUTO_INCREMENT PRIMARY KEY,
     titulo        VARCHAR(150)  NOT NULL,
     enunciado     VARCHAR(1000) NOT NULL,
     tipo_questao  VARCHAR(100)  NOT NULL,
@@ -72,7 +70,7 @@ CREATE TABLE questao
 -- Tabela de Alternativas (alternativa)
 CREATE TABLE alternativa
 (
-    id_alternativa    INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_alternativa    INT AUTO_INCREMENT PRIMARY KEY,
     texto             VARCHAR(500) NOT NULL,
     is_correta        BOOLEAN,
     opcao_alternativa VARCHAR(10),
