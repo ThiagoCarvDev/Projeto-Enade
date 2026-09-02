@@ -1,5 +1,6 @@
 package com.ads.enade.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ public class Alternativa {
 
     @ManyToOne
     @JoinColumn(name = "id_questao")
+    @JsonIgnore
     private Questao questao;
 
 }
