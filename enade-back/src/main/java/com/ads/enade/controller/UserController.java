@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@SecurityRequirement(name = WebSecurityConfig.SECURITY)
 @RequestMapping("/api/users")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 public class UserController {

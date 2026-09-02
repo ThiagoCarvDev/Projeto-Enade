@@ -1,7 +1,9 @@
 package com.ads.enade.service;
 
 import com.ads.enade.dto.alternativa.AlternativaDTORequest;
+import com.ads.enade.dto.alternativa.AlternativaDTOResponse;
 import com.ads.enade.dto.questao.QuestaoDTORequest;
+import com.ads.enade.dto.questao.QuestaoDTOResponse;
 import com.ads.enade.entity.Alternativa;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.enums.TipoQuestao;
@@ -9,6 +11,7 @@ import com.ads.enade.repository.QuestaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -20,7 +23,8 @@ public class QuestaoService {
 
     private final QuestaoRepository questaoRepository;
 
-    public void registerQuestion(QuestaoDTORequest request){
+    @Transactional
+    public QuestaoDTOResponse registerQuestion(QuestaoDTORequest request){
 
         validarEstruturaDaQuestao(request);
 
@@ -46,11 +50,31 @@ public class QuestaoService {
                         .build())
                 .toList();
 
+        // Seto as alternativas da questão antes de salvar para salvar tudo junto
         novaQuestao.setAlternativas(alternativasParaSalvar);
 
         questaoRepository.save(novaQuestao);
 
         log.info("Questão salva com sucesso...");
+
+        return new QuestaoDTOResponse(
+                novaQuestao.getId(),
+                novaQuestao.getTitulo(),
+                novaQuestao.getEnunciado(),
+                novaQuestao.getTipoQuestao().name(),
+                novaQuestao.getAreaQuestao(),
+                novaQuestao.getPossuiImagem(),
+                novaQuestao.getImgURL(),
+                novaQuestao.getExplicacao(),
+                novaQuestao.getAlternativas()
+                        .stream()
+                        .map(alternativa -> new AlternativaDTOResponse(
+                                alternativa.getId(),
+                                alternativa.getTexto(),
+                                alternativa.getIsCorreta(),
+                                alternativa.getOpcaoAlternativa()))
+                        .toList()
+        );
     }
 
     private void validarEstruturaDaQuestao(QuestaoDTORequest request){
@@ -77,5 +101,34 @@ public class QuestaoService {
                 throw new IllegalArgumentException("As alternativas da questão não podem ser repetir");
             }
         }
+    }
+
+    public QuestaoDTOResponse findById(Long id){
+
+        log.info("Iniciando busca de questão com ID: [{}] ...", id);
+
+        Questao response =  questaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Questão com id: "+id+" não encontrada"));
+
+        log.info("Questão encontrada com sucesso, com titulo: [{}]", response.getTitulo());
+
+        return new QuestaoDTOResponse(
+                response.getId(),
+                response.getTitulo(),
+                response.getEnunciado(),
+                response.getTipoQuestao().name(),
+                response.getAreaQuestao(),
+                response.getPossuiImagem(),
+                response.getImgURL(),
+                response.getExplicacao(),
+                response.getAlternativas()
+                        .stream()
+                        .map(alternativa -> new AlternativaDTOResponse(
+                                alternativa.getId(),
+                                alternativa.getTexto(),
+                                alternativa.getIsCorreta(),
+                                alternativa.getOpcaoAlternativa()))
+                        .toList()
+        );
     }
 }

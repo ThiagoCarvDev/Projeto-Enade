@@ -18,11 +18,11 @@ public class UsuarioSimulado {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
     @ManyToOne
-    @JoinColumn(name = "simulado_id")
+    @JoinColumn(name = "id_simulado")
     private Simulado IdSimulado;
 
     @Column(name = "nota")
