@@ -85,6 +85,8 @@ public class QuestaoService {
                 throw new IllegalArgumentException("As alternativas da questão não podem ser repetir");
             }
         }
+
+        log.info("Questao validade e pronta para registro");
     }
 
     public QuestaoDTOResponse findById(Long id){
