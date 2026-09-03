@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS simulado (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     data_criacao DATE NOT NULL,
+    quantidade_de_questoes INT,
     id_curso BIGINT,
     tipo_simulado ENUM('ORIGINAL', 'SIMULADO') NOT NULL,
     CONSTRAINT fk_simulado_curso FOREIGN KEY (id_curso) REFERENCES curso(id)
