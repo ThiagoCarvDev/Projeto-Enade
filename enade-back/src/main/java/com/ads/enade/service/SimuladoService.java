@@ -31,7 +31,9 @@ public class SimuladoService {
     @Transactional
     public SimuladoDTOResponse gerarSimulado(int quantidadeDeQuestoes){
 
-        if (quantidadeDeQuestoes <= 0) throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0");
+        if (quantidadeDeQuestoes <= 0 || quantidadeDeQuestoes > 30) {
+            throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0 ou até 30 ");
+        }
 
         List<Questao> questoesParaOSimulado = questaoRepository.buscarDezQuestoes(quantidadeDeQuestoes);
 
