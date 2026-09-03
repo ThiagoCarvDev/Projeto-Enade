@@ -1,6 +1,8 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.simulado.SimuladoDTOResponse;
+import com.ads.enade.dto.questao.UsuarioQuestaoDTOResponse;
+import com.ads.enade.dto.simulado.RespostaUsuarioSimulado;
+import com.ads.enade.dto.user.UsuarioSimuladoDTOResponse;
 import com.ads.enade.entity.Curso;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.entity.Simulado;
@@ -29,7 +31,7 @@ public class SimuladoService {
     private final SimuladoMapper simuladoMapper;
 
     @Transactional
-    public SimuladoDTOResponse gerarSimulado(int quantidadeDeQuestoes){
+    public UsuarioSimuladoDTOResponse gerarSimulado(int quantidadeDeQuestoes){
 
         if (quantidadeDeQuestoes <= 0 || quantidadeDeQuestoes > 30) {
             throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0 ou até 30 ");
@@ -56,8 +58,6 @@ public class SimuladoService {
 
         log.info("Simulado gerado com sucesso... [{}]", simuladoSalvo.getTitulo());
 
-        usuarioSimuladoService.registrarSimuladoAoUsuario(usuarioAutenticado,simuladoSalvo);
-
-        return simuladoMapper.toDTO(simuladoSalvo);
+        return usuarioSimuladoService.registrarSimuladoAoUsuario(usuarioAutenticado,simuladoSalvo);
     }
 }

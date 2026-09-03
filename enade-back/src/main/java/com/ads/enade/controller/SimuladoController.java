@@ -1,6 +1,6 @@
 package com.ads.enade.controller;
 
-import com.ads.enade.dto.simulado.SimuladoDTOResponse;
+import com.ads.enade.dto.user.UsuarioSimuladoDTOResponse;
 import com.ads.enade.service.SimuladoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ public class SimuladoController {
     private final SimuladoService simuladoService;
 
     @PostMapping
-    public ResponseEntity<SimuladoDTOResponse> buscarSimulado(@RequestParam int quantidadeDeQuestoes){
+    public ResponseEntity<UsuarioSimuladoDTOResponse> buscarSimulado(@RequestParam int quantidadeDeQuestoes){
 
-        SimuladoDTOResponse response = simuladoService.gerarSimulado(quantidadeDeQuestoes);
+        UsuarioSimuladoDTOResponse response = simuladoService.gerarSimulado(quantidadeDeQuestoes);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

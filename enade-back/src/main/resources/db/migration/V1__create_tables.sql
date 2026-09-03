@@ -101,7 +101,10 @@ CREATE TABLE IF NOT EXISTS usuario_simulado (
     id_simulado BIGINT,
     nota DOUBLE,
     quantidade_acertos INT,
+    quantidade_de_questoes INT,
+    quantidade_de_respostas INT,
     data_conclusao DATE,
+    finalizado BOOLEAN DEFAULT FALSE,
     CONSTRAINT fk_usuariosimulado_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id),
     CONSTRAINT fk_usuariosimulado_simulado FOREIGN KEY (id_simulado) REFERENCES simulado(id)
 );
