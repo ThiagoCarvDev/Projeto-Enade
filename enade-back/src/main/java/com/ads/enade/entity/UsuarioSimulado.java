@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "usuario_simulado")
 public class UsuarioSimulado {
@@ -19,11 +20,11 @@ public class UsuarioSimulado {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Usuario idUsuario;
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_simulado")
-    private Simulado IdSimulado;
+    private Simulado simulado;
 
     @Column(name = "nota")
     private Double nota;

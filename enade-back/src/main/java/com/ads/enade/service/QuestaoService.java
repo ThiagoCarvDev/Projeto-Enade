@@ -1,12 +1,12 @@
 package com.ads.enade.service;
 
 import com.ads.enade.dto.alternativa.AlternativaDTORequest;
-import com.ads.enade.dto.alternativa.AlternativaDTOResponse;
 import com.ads.enade.dto.questao.QuestaoDTORequest;
 import com.ads.enade.dto.questao.QuestaoDTOResponse;
 import com.ads.enade.entity.Alternativa;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.enums.TipoQuestao;
+import com.ads.enade.mapper.QuestaoMapper;
 import com.ads.enade.repository.QuestaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +22,7 @@ import java.util.List;
 public class QuestaoService {
 
     private final QuestaoRepository questaoRepository;
+    private final QuestaoMapper questaoMapper;
 
     @Transactional
     public QuestaoDTOResponse registerQuestion(QuestaoDTORequest request){
@@ -53,28 +54,11 @@ public class QuestaoService {
         // Seto as alternativas da questão antes de salvar para salvar tudo junto
         novaQuestao.setAlternativas(alternativasParaSalvar);
 
-        questaoRepository.save(novaQuestao);
+        Questao novaQuestaoSalva = questaoRepository.save(novaQuestao);
 
         log.info("Questão salva com sucesso...");
 
-        return new QuestaoDTOResponse(
-                novaQuestao.getId(),
-                novaQuestao.getTitulo(),
-                novaQuestao.getEnunciado(),
-                novaQuestao.getTipoQuestao().name(),
-                novaQuestao.getAreaQuestao(),
-                novaQuestao.getPossuiImagem(),
-                novaQuestao.getImgURL(),
-                novaQuestao.getExplicacao(),
-                novaQuestao.getAlternativas()
-                        .stream()
-                        .map(alternativa -> new AlternativaDTOResponse(
-                                alternativa.getId(),
-                                alternativa.getTexto(),
-                                alternativa.getIsCorreta(),
-                                alternativa.getOpcaoAlternativa()))
-                        .toList()
-        );
+        return questaoMapper.toDTO(novaQuestaoSalva);
     }
 
     private void validarEstruturaDaQuestao(QuestaoDTORequest request){
@@ -112,23 +96,6 @@ public class QuestaoService {
 
         log.info("Questão encontrada com sucesso, com titulo: [{}]", response.getTitulo());
 
-        return new QuestaoDTOResponse(
-                response.getId(),
-                response.getTitulo(),
-                response.getEnunciado(),
-                response.getTipoQuestao().name(),
-                response.getAreaQuestao(),
-                response.getPossuiImagem(),
-                response.getImgURL(),
-                response.getExplicacao(),
-                response.getAlternativas()
-                        .stream()
-                        .map(alternativa -> new AlternativaDTOResponse(
-                                alternativa.getId(),
-                                alternativa.getTexto(),
-                                alternativa.getIsCorreta(),
-                                alternativa.getOpcaoAlternativa()))
-                        .toList()
-        );
+        return questaoMapper.toDTO(response);
     }
 }
