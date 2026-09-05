@@ -6,6 +6,7 @@ import com.ads.enade.dto.questao.QuestaoDTOResponse;
 import com.ads.enade.entity.Alternativa;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.enums.TipoQuestao;
+import com.ads.enade.exception.QuestionNotFoundException;
 import com.ads.enade.mapper.QuestaoMapper;
 import com.ads.enade.repository.QuestaoRepository;
 import lombok.RequiredArgsConstructor;
@@ -94,7 +95,7 @@ public class QuestaoService {
         log.info("Iniciando busca de questão com ID: [{}] ...", id);
 
         Questao response =  questaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Questão com id: "+id+" não encontrada"));
+                .orElseThrow(() -> new QuestionNotFoundException("Questão com id: "+id+" não encontrada"));
 
         log.info("Questão encontrada com sucesso, com titulo: [{}]", response.getTitulo());
 

@@ -1,7 +1,5 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.questao.UsuarioQuestaoDTOResponse;
-import com.ads.enade.dto.simulado.RespostaUsuarioSimulado;
 import com.ads.enade.dto.user.UsuarioSimuladoDTOResponse;
 import com.ads.enade.entity.Curso;
 import com.ads.enade.entity.Questao;
@@ -37,7 +35,7 @@ public class SimuladoService {
             throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0 ou até 30 ");
         }
 
-        List<Questao> questoesParaOSimulado = questaoRepository.buscarDezQuestoes(quantidadeDeQuestoes);
+        List<Questao> questoesParaOSimulado = questaoRepository.buscarQuestoesPorQuantidade(quantidadeDeQuestoes);
 
         Usuario usuarioAutenticado = authService.me();
 
