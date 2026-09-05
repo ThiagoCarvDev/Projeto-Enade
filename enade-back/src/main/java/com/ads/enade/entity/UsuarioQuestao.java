@@ -2,10 +2,7 @@ package com.ads.enade.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "usuario_questao")
 public class UsuarioQuestao {
@@ -23,22 +21,19 @@ public class UsuarioQuestao {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_simulado")
-    private UsuarioSimulado IdUsuarioSimulado;
+    private UsuarioSimulado usuarioSimulado;
 
     @ManyToOne
     @JoinColumn(name = "id_questao")
-    private Questao IdQuestao;
+    private Questao questao;
 
-    @NotBlank
     @Column(name = "is_acerto")
     private Boolean isAcerto;
 
-    @NotBlank
     @Column(name = "data_resposta")
     private LocalDate dataResposta;
 
     @ManyToOne
     @JoinColumn(name = "id_alternativa")
-    private Alternativa IdAlternativa;
-
+    private Alternativa alternativa;
 }

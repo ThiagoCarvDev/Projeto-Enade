@@ -1,14 +1,12 @@
 package com.ads.enade.service;
 
-import com.ads.enade.dto.alternativa.AlternativaDTOResponse;
-import com.ads.enade.dto.course.CourseDtoResponse;
-import com.ads.enade.dto.questao.QuestaoDTOResponse;
-import com.ads.enade.dto.simulado.SimuladoDTOResponse;
+import com.ads.enade.dto.user.UsuarioSimuladoDTOResponse;
 import com.ads.enade.entity.Curso;
 import com.ads.enade.entity.Questao;
 import com.ads.enade.entity.Simulado;
 import com.ads.enade.entity.Usuario;
 import com.ads.enade.enums.TipoSimulado;
+import com.ads.enade.mapper.SimuladoMapper;
 import com.ads.enade.repository.QuestaoRepository;
 import com.ads.enade.repository.SimuladoRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +25,17 @@ public class SimuladoService {
     private final SimuladoRepository simuladoRepository;
     private final QuestaoRepository questaoRepository;
     private final AuthService authService;
+    private final UsuarioSimuladoService usuarioSimuladoService;
+    private final SimuladoMapper simuladoMapper;
 
     @Transactional
-    public SimuladoDTOResponse gerarSimulado(int quantidadeDeQuestoes){
+    public UsuarioSimuladoDTOResponse gerarSimulado(int quantidadeDeQuestoes){
 
-        if (quantidadeDeQuestoes <= 0) throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0");
+        if (quantidadeDeQuestoes <= 0 || quantidadeDeQuestoes > 30) {
+            throw new IllegalArgumentException("Quantidade de questões por simulado necessita ser maior que 0 ou até 30 ");
+        }
 
-        List<Questao> questoesParaOSimulado = questaoRepository.buscarDezQuestoes(quantidadeDeQuestoes);
+        List<Questao> questoesParaOSimulado = questaoRepository.buscarQuestoesPorQuantidade(quantidadeDeQuestoes);
 
         Usuario usuarioAutenticado = authService.me();
 
@@ -43,43 +45,17 @@ public class SimuladoService {
 
         Simulado novoSimulado = Simulado.builder()
                 .tipoSimulado(TipoSimulado.SIMULADO)
-                .IdCurso(cursoUsuarioAutenticado)
+                .curso(cursoUsuarioAutenticado)
                 .dataCriacao(LocalDate.now())
                 .titulo("Simulado | ENADE - "+usuarioAutenticado.getUsername())
                 .questoes(questoesParaOSimulado)
+                .quantidadeDeQuestoes(quantidadeDeQuestoes)
                 .build();
 
         Simulado simuladoSalvo = simuladoRepository.save(novoSimulado);
 
         log.info("Simulado gerado com sucesso... [{}]", simuladoSalvo.getTitulo());
 
-        return new SimuladoDTOResponse(
-                simuladoSalvo.getId(),
-                simuladoSalvo.getTitulo(),
-                simuladoSalvo.getDataCriacao(),
-                quantidadeDeQuestoes,
-                new CourseDtoResponse(cursoUsuarioAutenticado.getId(), cursoUsuarioAutenticado.getNome()),
-                simuladoSalvo.getTipoSimulado().name(),
-                simuladoSalvo.getQuestoes()
-                        .stream()
-                        .map(questao -> new QuestaoDTOResponse(
-                                questao.getId(),
-                                questao.getTitulo(),
-                                questao.getEnunciado(),
-                                questao.getTipoQuestao().name(),
-                                questao.getAreaQuestao(),
-                                questao.getPossuiImagem(),
-                                questao.getImgURL(),
-                                questao.getExplicacao(),
-                                questao.getAlternativas()
-                                        .stream()
-                                        .map(alternativa -> new AlternativaDTOResponse(
-                                                alternativa.getId(),
-                                                alternativa.getTexto(),
-                                                alternativa.getIsCorreta(),
-                                                alternativa.getOpcaoAlternativa()))
-                                        .toList()
-                        )).toList()
-        );
+        return usuarioSimuladoService.registrarSimuladoAoUsuario(usuarioAutenticado,simuladoSalvo);
     }
 }

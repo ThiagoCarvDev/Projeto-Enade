@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,7 +29,7 @@ public class Curso {
     private String nome;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "IdCurso")
-    private List<Simulado> simulados;
+    @OneToMany(mappedBy = "curso")
+    private List<Simulado> simulados = new ArrayList<>();
 
 }

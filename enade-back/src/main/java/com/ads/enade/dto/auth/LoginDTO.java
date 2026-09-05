@@ -1,5 +1,6 @@
 package com.ads.enade.dto.auth;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginDTO {
 
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
 }

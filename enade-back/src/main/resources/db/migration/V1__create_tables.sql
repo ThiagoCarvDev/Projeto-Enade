@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS simulado (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     data_criacao DATE NOT NULL,
+    quantidade_de_questoes INT,
     id_curso BIGINT,
     tipo_simulado ENUM('ORIGINAL', 'SIMULADO') NOT NULL,
     CONSTRAINT fk_simulado_curso FOREIGN KEY (id_curso) REFERENCES curso(id)
@@ -100,7 +101,10 @@ CREATE TABLE IF NOT EXISTS usuario_simulado (
     id_simulado BIGINT,
     nota DOUBLE,
     quantidade_acertos INT,
+    quantidade_de_questoes INT,
+    quantidade_de_respostas INT,
     data_conclusao DATE,
+    finalizado BOOLEAN DEFAULT FALSE,
     CONSTRAINT fk_usuariosimulado_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id),
     CONSTRAINT fk_usuariosimulado_simulado FOREIGN KEY (id_simulado) REFERENCES simulado(id)
 );

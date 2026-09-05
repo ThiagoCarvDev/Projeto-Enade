@@ -12,5 +12,5 @@ import java.util.List;
 public interface QuestaoRepository extends JpaRepository<Questao, Long> {
 
     @Query(value = "SELECT * FROM questao ORDER BY RAND() LIMIT :quantidade", nativeQuery = true)
-    List<Questao> buscarDezQuestoes(@Param("quantidade") int quantidade);
+    List<Questao> buscarQuestoesPorQuantidade(@Param("quantidade") int quantidade);
 }

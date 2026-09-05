@@ -9,7 +9,7 @@ import java.util.List;
 public record SimuladoDTOResponse(
         Long id,
         String titulo,
-        LocalDate ano,
+        LocalDate dataCriacao,
         Integer quantidadeDeQuestoes,
         CourseDtoResponse curso,
         String tipoSimulado,

@@ -29,9 +29,12 @@ public class Simulado {
     @Column(name = "data_criacao")
     private LocalDate dataCriacao;
 
+    @Column(name = "quantidade_de_questoes")
+    private Integer quantidadeDeQuestoes;
+
     @ManyToOne
     @JoinColumn(name = "id_curso")
-    private Curso IdCurso;
+    private Curso curso;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_simulado")
