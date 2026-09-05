@@ -53,4 +53,8 @@ public class UsuarioSimulado {
     public void adicionarQuantidadeDeRespostas(){
         this.quantidadeDeRespostas++;
     }
+
+    public void adicionarNota(Double nota){
+        this.nota = nota;
+    }
 }

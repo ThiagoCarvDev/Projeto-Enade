@@ -2,6 +2,7 @@ package com.ads.enade.controller;
 
 import com.ads.enade.dto.questao.UsuarioQuestaoDTOResponse;
 import com.ads.enade.dto.simulado.RespostaUsuarioSimulado;
+import com.ads.enade.dto.simulado.UsuarioSimuladoOverview;
 import com.ads.enade.dto.user.UsuarioSimuladoDTOResponse;
 import com.ads.enade.service.UsuarioSimuladoService;
 import jakarta.validation.Valid;
@@ -29,7 +30,15 @@ public class UsuarioSimuladoController {
     @PostMapping("/resposta")
     public ResponseEntity<UsuarioQuestaoDTOResponse> registrarRespostaDoUsuario(@RequestBody @Valid RespostaUsuarioSimulado request){
 
-        UsuarioQuestaoDTOResponse response = usuarioSimuladoService.registrarRespostaDoUsuario(request);
+        UsuarioQuestaoDTOResponse response = usuarioSimuladoService.registrarRespostaDoUsuarioNoSimulado(request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/resposta/finalizar")
+    public ResponseEntity<UsuarioSimuladoOverview> finalizarSimuladoUsuario(@RequestBody @Valid RespostaUsuarioSimulado request){
+
+        UsuarioSimuladoOverview response = usuarioSimuladoService.finalizarSimuladoUsuario(request);
 
         return ResponseEntity.ok(response);
     }
