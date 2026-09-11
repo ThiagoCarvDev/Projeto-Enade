@@ -52,10 +52,10 @@ public class AuthService {
 
     public JwtResponse authenticateUser(LoginDTO loginRequest) {
 
-        log.info("Inicinado processo de autenticação do usuário [{}]", loginRequest.getUsername());
+        log.info("Inicinado processo de autenticação do usuário [{}]", loginRequest.getEmail());
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -79,27 +79,22 @@ public class AuthService {
 
     public MessageResponse registerUser(RegisterDTO signUpRequest) {
 
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            log.error("Erro: username já existente");
-            throw new UsernameAlreadyTakenException("Error: Username is already taken!");
-        }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             log.error("Erro: email já existente");
-            throw new EmailAlreadyInUseException("Error: Email is already in use!");
+            throw new EmailAlreadyInUseException("Erro: esse Email já está em uso");
         }
 
         log.info("Iniciando processo de registro de um novo usuário...");
 
         Curso course = courseRepository.findById(signUpRequest.getCourseId())
-                .orElseThrow(() -> new CourseNotFoundException("Error: Course is not found."));
+                .orElseThrow(() -> new CourseNotFoundException("Erro:O curso não foi encontrado"));
 
         Usuario usuario = new Usuario(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
 
         Role roleUser = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RoleNotFoundException("Error: Role is not found"));
+                .orElseThrow(() -> new RoleNotFoundException("Erro: O role não foi encontrado"));
 
         usuario.setRoles(Set.of(roleUser));
         usuario.setCourse(course);
@@ -107,7 +102,7 @@ public class AuthService {
 
         log.info("Usuário registrado com sucesso | [{}]", usuario.getUsername());
 
-        return new MessageResponse("User registered successfully!");
+        return new MessageResponse("Usuario registrado com sucesso!");
     }
 
     public void sendResetPasswordEmail(EmailDTO emailDTO) {
@@ -115,7 +110,7 @@ public class AuthService {
         //TODO: O EMAIL TEM QUE SER VERIFICADO NA AMAZON, SE FOR PARA PRODUÇÃO, NÃO PRECISA VERIFICAR.
 
         Usuario usuario = userRepository.findByEmail(emailDTO.getEmail())
-                .orElseThrow(() -> new EmailNotFoundException("Email not found."));
+                .orElseThrow(() -> new EmailNotFoundException("Email não encontrado."));
 
         String token = UUID.randomUUID().toString();
         PasswordResetToken resetToken = new PasswordResetToken(token, usuario);
@@ -127,10 +122,10 @@ public class AuthService {
 
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
         PasswordResetToken tokenOptional = passwordResetTokenRepository.findByToken(resetPasswordDTO.getToken())
-                .orElseThrow(() -> new InvalidTokenException("Invalid or expired token."));
+                .orElseThrow(() -> new InvalidTokenException("Token invalido ou expirado"));
 
         if (tokenOptional.getExpiryDate().before(new Date())) {
-            throw new InvalidTokenException("Expired token.");
+            throw new InvalidTokenException("Token expirado");
         }
 
         Usuario usuario = tokenOptional.getUsuario();
