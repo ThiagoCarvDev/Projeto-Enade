@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
+import { criarSimulado } from "@/lib/api"
 
 export default function FormGerarSimulado() {
     const [quantidade, setQuantidade] = useState(10)
@@ -14,24 +15,10 @@ export default function FormGerarSimulado() {
         setIsLoading(true)
 
         try {
-            const response = await fetch(`/api/simulado?quantidadeDeQuestoes=${quantidade}`, {
-                method: "POST",
-            })
-
-            if (!response.ok) {
-                throw new Error("Erro ao gerar simulado")
-            }
-
-            const data = await response.json()
-
-            // Redireciona para a tela do simulado criado (caso retorne a ID) ou atualiza a listagem
-            if (data?.id) {
-                router.push(`/simulados/${data.id}`)
-            } else {
-                router.refresh()
-            }
+            const data = await criarSimulado(quantidade)
+            router.push(`/simulados/${data.id}`)
         } catch (error) {
-            console.error("Erro ao tentar gerar o simulado:", error)
+            alert(error instanceof Error ? error.message : "Erro ao gerar simulado")
         } finally {
             setIsLoading(false)
         }

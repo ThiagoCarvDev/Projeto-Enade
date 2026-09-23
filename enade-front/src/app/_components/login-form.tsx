@@ -11,10 +11,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { GoogleLogo } from "@phosphor-icons/react";
+import { apiFetch } from "@/lib/api";
 
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Email inválido" }),
+  username: z.string().min(3, { message: "Informe seu usuário" }),
   password: z.string().min(8, { message: "A senha deve ter pelo menos 8 caracteres" }),
 })
 
@@ -28,12 +29,27 @@ export function LoginForm() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   })
 
   async function onSubmit(formData: LoginFormValues) {
+    setIsLoading(true)
+    try {
+      const response = await apiFetch('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: formData.username, password: formData.password }),
+      });
+      if (!response.ok) throw new Error('Usuário ou senha incorretos');
+      const data = await response.json();
+      window.localStorage.setItem('enade_token', data.token);
+      router.replace('/simulados');
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Não foi possível entrar.');
+    } finally {
+      setIsLoading(false)
+    }
     // await authClient.signIn.email({
     //   email: formData.email,
     //   password: formData.password,
@@ -63,12 +79,12 @@ export function LoginForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Usuário</FormLabel>
               <FormControl>
-                <Input placeholder="seu@email.com" type="email" {...field} disabled={isLoading} />
+                <Input placeholder="Seu usuário" autoComplete="username" {...field} disabled={isLoading} />
               </FormControl>
               <FormMessage />
             </FormItem>

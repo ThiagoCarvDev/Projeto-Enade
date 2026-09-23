@@ -2,9 +2,9 @@
 
 type Props = {
     pergunta: string;
-    alternativas: string[];
+    alternativas: { id: number; texto: string; opcaoAlternativa: string }[];
     selecionada?: number;
-    onSelect: (index: number) => void;
+    onSelect: (id: number) => void;
 };
 
 export default function QuestionCard({
@@ -20,18 +20,19 @@ export default function QuestionCard({
             </h2>
 
             <div className="mt-4 space-y-2">
-                {alternativas.map((alt, index) => (
+                {alternativas.map((alt) => (
                     <button
-                        key={index}
-                        onClick={() => onSelect(index)}
+                        key={alt.id}
+                        onClick={() => onSelect(alt.id)}
                         className={`w-full text-left p-3 rounded-lg border transition
-              ${selecionada === index
+              ${selecionada === alt.id
                                 ? 'bg-blue-600 text-white border-blue-600'
                                 : 'bg-gray-50 hover:bg-gray-100'
                             }
             `}
                     >
-                        {alt}
+                        <span className="mr-2 font-semibold">{alt.opcaoAlternativa}</span>
+                        {alt.texto}
                     </button>
                 ))}
             </div>

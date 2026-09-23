@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 type StartButtonProps = {
-    simuladoId: string;
+    simuladoId: number;
 };
 
 export function StartSimuladoButton({ simuladoId }: StartButtonProps) {

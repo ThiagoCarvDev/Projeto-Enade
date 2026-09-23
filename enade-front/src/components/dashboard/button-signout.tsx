@@ -9,13 +9,8 @@ export function ButtonSignOut() {
     const router = useRouter();
 
     async function signOut() {
-        // await authClient.signOut({
-        //     fetchOptions: {
-        //         onSuccess: () => {
-        //             router.replace("/")
-        //         }
-        //     }
-        // })
+        window.localStorage.removeItem("enade_token");
+        router.replace("/");
     }
 
     return (

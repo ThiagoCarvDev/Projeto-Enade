@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import SimuladoCard from './simulado-card';
-import type { SimuladoSummary } from '@/lib/api';
+import { listarSimulados, type UsuarioSimulado } from '@/lib/api';
 
 export default function SimuladosTable({ query }: { query: string }) {
-  const [simulados, setSimulados] = useState<SimuladoSummary[]>([]);
+  const [simulados, setSimulados] = useState<UsuarioSimulado[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,17 +13,13 @@ export default function SimuladosTable({ query }: { query: string }) {
 
     async function loadSimulados() {
       setLoading(true);
-      const url = `/api/simulados?query=${encodeURIComponent(query)}`;
-      const response = await fetch(url, { cache: 'no-store' });
-      if (!active) return;
-
-      if (!response.ok) {
+      try {
+        const data = await listarSimulados();
+        if (active) setSimulados(data);
+      } catch {
         setSimulados([]);
-      } else {
-        const data = (await response.json()) as SimuladoSummary[];
-        setSimulados(data);
       }
-      setLoading(false);
+      if (active) setLoading(false);
     }
 
     void loadSimulados();

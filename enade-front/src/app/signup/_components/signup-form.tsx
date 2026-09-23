@@ -10,6 +10,7 @@ import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { apiFetch, readApiError } from "@/lib/api"
 
 
 const signupSchema = z
@@ -45,26 +46,32 @@ export function SignupForm() {
   })
 
   async function onSubmit(formData: SignupFormValues) {
-    // const { data, error } = await authClient.signUp.email({
-    //   name: formData.name,
-    //   email: formData.email,
-    //   password: formData.password,
-    //   callbackURL: "/dashboard"
-    // },
-    //   {
-    //     onRequest: (ctx) => {
+    setIsLoading(true)
 
-    //     },
-    //     onSuccess: (ctx) => {
-    //       console.log("Cadastrado", ctx)
-    //       router.replace("/dashboard")
-    //     },
-    //     onError: (ctx) => {
-    //       console.log("Erro ao criar conta")
-    //       console.log(ctx)
-    //     }
-    //   }
-    // )
+    try {
+      const payLoad = {
+        username: formData.name,
+        email: formData.email,
+        password: formData.password,
+        courseId: 1,
+      }
+
+      const response = await apiFetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(payLoad),
+      })
+
+      if (!response.ok) {
+        throw new Error(await readApiError(response))
+      }
+
+      router.push("/")
+
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Erro ao efetuar o cadastro.")
+    } finally {
+      setIsLoading(false)
+    }
 
   }
 
